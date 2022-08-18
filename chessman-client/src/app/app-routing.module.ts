@@ -1,10 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [{ path: 'info', loadChildren: () => import('./pages/info/info.module').then(m => m.InfoModule) }, 
-{ path: 'info', loadChildren: () => import('./pages/info/info.module').then(m => m.InfoModule) },
+const routes: Routes = [
+  {path: 'dangnhap', loadChildren: () => import('./pages/dangnhap/dangnhap.module').then(m => m.DangnhapModule) },
+  { path: 'menu', loadChildren: () => import('./pages/menu/menu.module').then(m => m.MenuModule) }, 
+  { path: 'xem', loadChildren: () => import('./pages/xem/xem.module').then(m => m.XemModule) }, 
+  { path: 'home', loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) }, 
+  { path: 'dangky', loadChildren: () => import('./pages/dangky/dangky.module').then(m => m.DangkyModule)},
+  { path: 'info', loadChildren: () => import('./pages/info/info.module').then(m => m.InfoModule) },
 { path: 'game', loadChildren: () => import('./pages/game/game.module').then(m => m.GameModule) },
-{ path: 'lobby', loadChildren: () => import('./pages/lobby/lobby.module').then(m => m.LobbyModule) }];
+{ path: 'lobby', loadChildren: () => import('./pages/lobby/lobby.module').then(m => m.LobbyModule) },
+{ path: 'info', loadChildren: () => import('./pages/info/info.module').then(m => m.InfoModule) },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
