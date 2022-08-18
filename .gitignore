@@ -1,0 +1,60 @@
+/chessman-client/node_modules
+/chessman-client/dist
+/chessman-client/tmp
+/chessman-client/out-tsc
+/chessman-client/bazel-out
+
+/chessman-server/node_modules
+/chessman-server/dist
+/chessman-server/key-admin.json
+
+
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# Compiled output
+/chessman-client/dist
+/chessman-client/tmp
+/chessman-client/out-tsc
+/chessman-client/bazel-out
+
+# Node
+/chessman-client/npm-debug.log
+/chessman-client/yarn-error.log
+
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# Miscellaneous
+/chessman-client/.angular/cache
+/chessman-client.sass-cache/
+/chessman-client/connect.lock
+/chessman-client/coverage
+/chessman-client/libpeerconnection.log
+testem.log
+/chessman-client/typings
+
+# System files
+/chessman-client.DS_Store
+Thumbs.db
+
+# Firebase
+.firebase
+*-debug.log
+.runtimeconfig.json
+
+/chessman-server/dist
+/chessman-server/key-admin.json
