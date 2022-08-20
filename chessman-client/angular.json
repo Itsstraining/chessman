@@ -100,6 +100,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "Chessman:build:production",
+            "firebaseProject": "xiangqi-6c451",
+            "firebaseHostingSite": "xiangqi-6c451"
+          }
         }
       }
     }

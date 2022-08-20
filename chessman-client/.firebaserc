@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "xiangqi-6c451": {
+      "hosting": {
+        "Chessman": [
+          "xiangqi-6c451"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "xiangqi-6c451"
+  }
+}
