@@ -1,0 +1,13 @@
+<div class="board selectDisable">
+  <div *ngFor="let i of [0,1,2,3,4,5,6,7,8,9]" class="row">
+    <div (drop)="drop($event,table[i][j].position)" (dragover)="allowDrop($event)" class="cel"
+      *ngFor="let j of [0,1,2,3,4,5,6,7,8]">
+      <img *ngIf="table[i][j].haveChess" class="draggable"
+        src="../../../../../assets/xiangqi/{{table[i][j].chess.chessImg}}" draggable="true"
+        (mousedown)="mousedownImg($event, table[i][j].chess)" (dragstart)="drag($event)" id="{{table[i][j].chess.id}}"
+        (dragend)="dragend($event, table[i][j].position)">
+
+        <div *ngIf="tableEff[i][j].chess.shotName == '.'" class="dot"></div>
+      </div>
+  </div>
+</div>

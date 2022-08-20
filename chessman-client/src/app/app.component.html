@@ -2,25 +2,12 @@
 
   <nav class="nav__cont">
     <ul class="nav">
-      <li class="nav__items ">
+      <li *ngFor="let item of menuLeft" class="nav__items ">
 
-        <a href="/home">Home</a>
+        <a href="/{{item.href}}">{{item.title}}</a>
       </li>
 
-      <li class="nav__items ">
 
-        <a href="/menu">Menu</a>
-      </li>
-
-      <li class="nav__items ">
-
-        <a href="/xem">Xem</a>
-      </li>
-
-      <li class="nav__items ">
-
-        <a href="">Planner</a>
-      </li>
 
     </ul>
   </nav>
