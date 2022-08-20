@@ -1,0 +1,52 @@
+.board {
+  margin: 2em;
+  display: block;
+  width: 72em;
+  background-image: url(/assets/xiangqi/board.svg);
+  background-size: 100% 100%;
+  padding-top: 0.8em;
+  .row {
+    display: flex;
+    height: 7.9em;
+    justify-content: space-between;
+    margin-top: 0.4em;
+    .cel {
+      float: left;
+      width: 6em;
+      height: 6em;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      position: relative;
+      img {
+        width: 6.8em;
+        height: auto;
+        margin-bottom: 2em;
+      }
+      .dot {
+        width: 2em;
+        height: 2em;
+        background: rgba(109, 145, 67, 0.66);
+        border-radius: 50%;
+
+        position: absolute;
+        top: 0;
+        margin-top: 2.5em;
+      }
+    }
+  }
+}
+
+.draggable {
+  cursor: grab;
+}
+
+.draggable:active {
+  cursor: grabbing;
+}
+
+.chess{
+  width: 6em;
+  height: auto;
+  margin-bottom: 2em;
+}

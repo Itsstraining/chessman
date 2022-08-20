@@ -1,32 +1,24 @@
-.form-history{
+.form-history {
     background-color: #232b2b;
-    max-width:   30%;
+    max-width: 30%;
     border-radius: 3%;
     float: right;
-}
-.columns-user1{
-    float: left;
-    margin-right:100px;
-    font-size: 22px;
-    color: white;
-}
-.columns-user2{
-    float: right;
-    margin-left:100px;
-    font-size: 22px;
-    color: white;
-}
-img{
-    max-width: 30%;
-    border-radius:19% ;
+    margin-right: 5px;
 }
 
-.versus{
-   margin-left: 50px;
+img {
+    margin: 2%;
+    max-width: 30%;
+    border-radius: 19%;
+}
+
+.versus {
+    margin-left: 50px;
     padding-top: 30px;
     font-size: 40px;
     color: green;
 }
+
 td {
     color: white;
     text-align: center;
@@ -35,18 +27,69 @@ td {
     vertical-align: inherit;
     outline: none;
 }
+
 th {
     color: white;
     text-align: center;
     outline: none;
 }
-  table td.separator {
+
+table td.separator {
     border: none;
     height: 40px;
-  }
-  table {
+}
+
+table {
     border-collapse: collapse;
-  }
-  td th tr{
-    justify-content: center ;
-  }
+
+}
+
+td th tr {
+    justify-content: center;
+}
+
+.cellTable {
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 31px;
+
+}
+td :hover{
+    background: rgb(83, 194, 177);
+}
+
+span {
+    display: contents;
+    justify-content: space-between;
+
+}
+
+.chat {
+    border-radius: 3%;
+    width: 30%;
+    height: 210px;
+    background-color: #5c5c5c;
+    float: right;
+    margin-top: 3%;
+    margin-right: 5px;
+    margin-left: 60%;
+}
+
+input {
+    width: 90%;
+    height:22px;
+    margin-top: 41%;
+    border-radius: 10%;
+    border: none;
+    /* <-- This thing here */
+    border: solid 1px #ccc;
+    border-radius: 10px;
+}
+.aaa{
+    margin: 0;
+    background-color: #eeeee4;
+    height: 747px;
+    
+}

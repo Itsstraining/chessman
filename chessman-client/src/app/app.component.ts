@@ -7,4 +7,38 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Chessman';
+  menuLeft = [
+    {
+      title: 'Đăng ký',
+      href: 'dangky'
+    },
+    {
+      title: 'Đăng nhập',
+      href: 'dangnhap'
+    },
+    {
+      title: 'Menu',
+      href: 'menu'
+    },
+    {
+      title: 'Xem',
+      href: 'xem'
+    },
+    {
+      title: 'Home',
+      href: 'home'
+    },
+    {
+      title: 'Info',
+      href: 'info'
+    },
+    {
+      title: 'Game',
+      href: 'game'
+    },
+    {
+      title: 'Lobby',
+      href: 'loddy'
+    },
+  ]
 }

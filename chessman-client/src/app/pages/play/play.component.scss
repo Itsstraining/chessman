@@ -1,0 +1,31 @@
+.playPage {
+  min-height: 100vh;
+  background-color: #312e2b;
+  color: white;
+  display: flex;
+  padding: 5em 20em;
+  p {
+    font-size: 1.8em;
+  }
+
+  .col1 {
+    flex: 12;
+    .player {
+      padding: 1em 0;
+      display: flex;
+      align-items: center;
+      .ava {
+        padding: 0 1em 0 0;
+        img {
+          width: 3em;
+          border-radius: 0.5em;
+        }
+      }
+      .name {
+      }
+    }
+  }
+  .col2 {
+    flex: 10;
+  }
+}

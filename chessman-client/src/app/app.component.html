@@ -1,39 +1,17 @@
-<nav class="nav__cont">
-  <ul class="nav">
-    <li class="nav__items ">
+<div class="app">
 
-      <a href="/home">Home</a>
-    </li>      
-    
-    <li class="nav__items ">
-
-      <a href="/menu">Menu</a>
-    </li>
-      
-    <li class="nav__items ">
-
-     <a href="/xem">Xem</a>
-    </li>
-    <li class="nav__items ">
-
-      <a href="/game">Game</a>
-     </li>
-    <li class="nav__items ">
-
-      <a href="/info">Thông tin</a>
-     </li>
-    <li class="nav__items ">
-
-      <a href="">Planner</a>
-    </li>
-      
-  </ul>
-</nav>
-
-  
+  <nav class="nav__cont">
+    <ul class="nav" >
+      <li *ngFor="let item of menuLeft" class="nav__items ">
+        <a href="/{{item.href}}">{{item.title}}</a>
+      </li>
+    </ul>
+  </nav>
   <div class="wrapper">
-    <main style=" margin: 0 0 0 90px;">
-      <router-outlet></router-outlet>
+    <main style=" margin: 0 0 0 0px;">
     </main>
   </div>
-<router-outlet></router-outlet>
+
+  <router-outlet></router-outlet>
+</div>
+  
