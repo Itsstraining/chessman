@@ -10,7 +10,7 @@ export class AppComponent {
   menuLeft = [
     {
       title: 'Đăng ký',
-      href: 'dangku'
+      href: 'dangky'
     },
     {
       title: 'Đăng nhập',

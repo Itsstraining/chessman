@@ -12,8 +12,9 @@ export interface Chess {
   chessImg: string
   chessIconClass: string
   position: Position
-  isFirstMove: boolean
   isPawnUp: boolean
+  limitFrom: Position
+  limitTo: Position
 }
 
 export interface Position {

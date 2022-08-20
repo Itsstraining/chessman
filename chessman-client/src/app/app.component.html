@@ -1,22 +1,17 @@
 <div class="app">
 
   <nav class="nav__cont">
-    <ul class="nav">
+    <ul class="nav" >
       <li *ngFor="let item of menuLeft" class="nav__items ">
-
         <a href="/{{item.href}}">{{item.title}}</a>
       </li>
-
-
-
     </ul>
   </nav>
 
-
   <div class="wrapper">
-    <main style=" margin: 0 0 0 90px;">
-      <router-outlet></router-outlet>
+    <main style=" margin: 0 0 0 0px;">
     </main>
   </div>
+
   <router-outlet></router-outlet>
 </div>

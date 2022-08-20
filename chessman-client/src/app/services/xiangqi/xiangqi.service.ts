@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Chess, ItemTable, Position } from 'src/app/models/chess.model';
+import { Player } from 'src/app/models/player.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +15,11 @@ export class XiangqiService {
   constructor() {
     this.createMoves()
     this.createChessAsset()
-    this.currenChessTable = this.createChessTable()
-    this.currenChessTable = this.setTable('xmtsvstmx|         | p     p |c c c c c|         |         |C C C C C| P     P |         |XMTSVSTMX', this.currenChessTable)
   }
 
 
   //  xmtsvstmx|        | p    p |c c c c c|       |        |XMTSVSTMX|        | P    P |C C C C C
-  setTable(txtTable: string, chessTable: ItemTable[][]): ItemTable[][] {
+  setTable(txtTable: string, chessTable: ItemTable[][], player: Player): ItemTable[][] {
     let res = [...chessTable]
     try {
       let rows = txtTable.split('|')
@@ -30,6 +29,13 @@ export class XiangqiService {
           if (chessTxtS[j] != ' ') {
             let temp = this.chessAsset.get(chessTxtS[j])
             if (temp != undefined) {
+
+              if (temp.shotName.toLocaleLowerCase() == 'c') {
+                if (this.isSameSide(temp.shotName, player.chessControl.chessID)) {
+                  temp.isPawnUp = player.isBase
+                }
+              }
+
               let id = res[i][j].chess.id
               res[i][j].chess = { ...temp }
               if (id == '') {
@@ -85,11 +91,20 @@ export class XiangqiService {
     else if (chess.shotName.toLowerCase() == 'm') {
       ruleStr = '1 up-up-right/1 up-up-left/1 left-left-up/1 left-left-down/1 down-down-left/1 down-down-right/1 right-right-up/1 right-right-down'
     }
-    else if (chess.shotName == 'c') {
-      ruleStr = '1 down'
-    }
-    else if (chess.shotName == 'C') {
-      ruleStr = '1 up'
+    else if (chess.shotName.toLowerCase() == 'c') {
+      let baseStr = ''
+      chess.isPawnUp ? baseStr = 'up' : baseStr = 'down'
+      ruleStr = '1 ' + baseStr
+      if (chess.isPawnUp) {
+        if (chess.position.y < 5) {
+          ruleStr += `/1 left/1 right`
+        }
+      } else {
+        if (chess.position.y > 4) {
+          ruleStr += `/1 left/1 right`
+        }
+      }
+
     }
 
     let temp = ruleStr.split('/')
@@ -214,8 +229,9 @@ export class XiangqiService {
         x: -1,
         y: -1
       },
-      isFirstMove: false,
-      isPawnUp: false
+      isPawnUp: false,
+      limitFrom: { x: -1, y: -1 },
+      limitTo: { x: -1, y: -1 },
     }),
       this.chessAsset.set('v', {
         id: '',
@@ -227,8 +243,9 @@ export class XiangqiService {
           x: -1,
           y: -1
         },
-        isFirstMove: false,
-        isPawnUp: false
+        isPawnUp: false,
+        limitFrom: { x: -1, y: -1 },
+        limitTo: { x: -1, y: -1 },
       })
     this.chessAsset.set('s', {
       id: '',
@@ -240,8 +257,9 @@ export class XiangqiService {
         x: -1,
         y: -1
       },
-      isFirstMove: false,
-      isPawnUp: false
+      isPawnUp: false,
+      limitFrom: { x: -1, y: -1 },
+      limitTo: { x: -1, y: -1 },
     })
     this.chessAsset.set('t', {
       id: '',
@@ -253,8 +271,9 @@ export class XiangqiService {
         x: -1,
         y: -1
       },
-      isFirstMove: false,
-      isPawnUp: false
+      isPawnUp: false,
+      limitFrom: { x: -1, y: -1 },
+      limitTo: { x: -1, y: -1 },
     })
     this.chessAsset.set('m', {
       id: '',
@@ -266,8 +285,9 @@ export class XiangqiService {
         x: -1,
         y: -1
       },
-      isFirstMove: false,
-      isPawnUp: false
+      isPawnUp: false,
+      limitFrom: { x: -1, y: -1 },
+      limitTo: { x: -1, y: -1 },
     })
     this.chessAsset.set('x', {
       id: '',
@@ -279,8 +299,9 @@ export class XiangqiService {
         x: -1,
         y: -1
       },
-      isFirstMove: false,
-      isPawnUp: false
+      isPawnUp: false,
+      limitFrom: { x: -1, y: -1 },
+      limitTo: { x: -1, y: -1 },
     })
     this.chessAsset.set('c', {
       id: '',
@@ -292,8 +313,9 @@ export class XiangqiService {
         x: -1,
         y: -1
       },
-      isFirstMove: false,
-      isPawnUp: false
+      isPawnUp: false,
+      limitFrom: { x: -1, y: -1 },
+      limitTo: { x: -1, y: -1 },
     })
     this.chessAsset.set('V', {
       id: '',
@@ -305,8 +327,9 @@ export class XiangqiService {
         x: -1,
         y: -1
       },
-      isFirstMove: false,
-      isPawnUp: false
+      isPawnUp: false,
+      limitFrom: { x: -1, y: -1 },
+      limitTo: { x: -1, y: -1 },
     })
     this.chessAsset.set('S', {
       id: '',
@@ -318,8 +341,9 @@ export class XiangqiService {
         x: -1,
         y: -1
       },
-      isFirstMove: false,
-      isPawnUp: false
+      isPawnUp: false,
+      limitFrom: { x: -1, y: -1 },
+      limitTo: { x: -1, y: -1 },
     })
     this.chessAsset.set('T', {
       id: '',
@@ -331,8 +355,9 @@ export class XiangqiService {
         x: -1,
         y: -1
       },
-      isFirstMove: false,
-      isPawnUp: false
+      isPawnUp: false,
+      limitFrom: { x: -1, y: -1 },
+      limitTo: { x: -1, y: -1 },
     })
     this.chessAsset.set('M', {
       id: '',
@@ -344,8 +369,9 @@ export class XiangqiService {
         x: -1,
         y: -1
       },
-      isFirstMove: false,
-      isPawnUp: false
+      isPawnUp: false,
+      limitFrom: { x: -1, y: -1 },
+      limitTo: { x: -1, y: -1 },
     })
     this.chessAsset.set('X', {
       id: '',
@@ -357,8 +383,9 @@ export class XiangqiService {
         x: -1,
         y: -1
       },
-      isFirstMove: false,
-      isPawnUp: false
+      isPawnUp: false,
+      limitFrom: { x: -1, y: -1 },
+      limitTo: { x: -1, y: -1 },
     })
     this.chessAsset.set('C', {
       id: '',
@@ -370,8 +397,9 @@ export class XiangqiService {
         x: -1,
         y: -1
       },
-      isFirstMove: false,
-      isPawnUp: false
+      isPawnUp: false,
+      limitFrom: { x: -1, y: -1 },
+      limitTo: { x: -1, y: -1 },
     })
     this.chessAsset.set('P', {
       id: '',
@@ -383,8 +411,9 @@ export class XiangqiService {
         x: -1,
         y: -1
       },
-      isFirstMove: false,
-      isPawnUp: false
+      isPawnUp: false,
+      limitFrom: { x: -1, y: -1 },
+      limitTo: { x: -1, y: -1 },
     })
   }
   newChess() {
@@ -398,8 +427,9 @@ export class XiangqiService {
         x: -1,
         y: -1
       },
-      isFirstMove: false,
-      isPawnUp: false
+      isPawnUp: false,
+      limitFrom: { x: -1, y: -1 },
+      limitTo: { x: -1, y: -1 },
     }
     return chess
   }
