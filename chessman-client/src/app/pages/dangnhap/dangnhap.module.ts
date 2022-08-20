@@ -11,7 +11,8 @@ import { DangnhapComponent } from './dangnhap.component';
   ],
   imports: [
     CommonModule,
-    DangnhapRoutingModule
+    DangnhapRoutingModule,
+    
   ]
 })
 export class DangnhapModule { }
