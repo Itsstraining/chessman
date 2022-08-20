@@ -1,6 +1,6 @@
 .form-history{
     background-color: #232b2b;
-    max-width:   40%;
+    max-width:   30%;
     border-radius: 3%;
     float: right;
 }
@@ -22,8 +22,31 @@ img{
 }
 
 .versus{
-   margin-left: 10px;
+   margin-left: 50px;
     padding-top: 30px;
     font-size: 40px;
     color: green;
 }
+td {
+    color: white;
+    text-align: center;
+    border: none;
+    display: table-cell;
+    vertical-align: inherit;
+    outline: none;
+}
+th {
+    color: white;
+    text-align: center;
+    outline: none;
+}
+  table td.separator {
+    border: none;
+    height: 40px;
+  }
+  table {
+    border-collapse: collapse;
+  }
+  td th tr{
+    justify-content: center ;
+  }
