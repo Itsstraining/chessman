@@ -1,4 +1,7 @@
+.card-info{
+    margin: 100px;
 
+}
 .b1 {
     border: none;
     background: none;
@@ -7,6 +10,7 @@
     padding: 0;
     margin-right: 10px;
     margin-top: 20px;
+
 }
 .avatar {
     vertical-align: middle;
@@ -36,6 +40,8 @@
     margin: 20px auto 40px;
     border-radius: 25px;
     box-sizing: border-box;
+    background:  0% 0% / cover rgb(255, 251, 242);
+    box-shadow: rgb(65 69 88 / 10%) 0px 7px 14px, rgb(0 0 0 / 7%) 0px 3px 6px;
 }
 .elo-flag{
     display: flex;

@@ -1,31 +1,54 @@
 
 <div class="app">
+  <div class="taskbar">
+    <div class="menu">
 
+    </div>
+    <div class="avatar">
+      <div class="tieng">
+        <img src="../assets/avatar/dich.svg" style="margin: 10px;">
+        </div>
+        <div class="chontieng">
+
+            <div class="dropdown">
+              <button class="dropbtn">
+                <img src="../assets/avatar/vn.svg" style="width: 15px; height:15px ;">
+                Tiếng Việt
+              </button>
+              <div class="dropdown-content">
+                <a href="#">English </a>
+                <a href="#">Link 2</a>
+                <a href="#">Link 3</a>
+              </div>
+            </div> 
+
+          </div>
+
+      <div class="thongtin">
+        <img src="../assets/avatar/919a59cfc56e41bcc423b06a44765593.png" alt="">
+              <button class="dropbtn"></button>
+
+              <div class="thongtin-content">
+                <a href="info">Thông tin của bạn </a>
+                <a href="#">Bạn</a>
+                <a href="#" (click)="logout()">logout</a>
+              </div>
+
+
+        
+      </div>
+    </div>
+  </div>
   <nav class="nav__cont">
-    <ul class="nav">
-      <li class="nav__items ">
-
-        <a href="/home">Home</a>
+    <ul class="nav" >
+      <li *ngFor="let item of menuLeft" class="nav__items ">
+        <a href="/{{item.href}}">{{item.title}}</a>
       </li>
-
-      <li class="nav__items ">
-
-        <a href="/menu">Menu</a>
-      </li>
-
-      <li class="nav__items ">
-
-        <a href="/xem">Xem</a>
-      </li>
-
-      <li class="nav__items ">
-
-        <a href="">Planner</a>
-      </li>
-
     </ul>
   </nav>
-
-
-  <router-outlet></router-outlet>
+  <div class="wrapper">
+    <main style=" margin: 0 0 0 0px;">
+    </main>
+  </div>
+  <router-outlet style="margin: 0 0 0 100px;"></router-outlet>
 </div>
