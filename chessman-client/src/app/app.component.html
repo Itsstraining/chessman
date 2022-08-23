@@ -1,4 +1,3 @@
-
 <div class="app">
   <div class="taskbar">
     <div class="menu">
@@ -7,40 +6,42 @@
     <div class="avatar">
       <div class="tieng">
         <img src="../assets/avatar/dich.svg" style="margin: 10px;">
-        </div>
-        <div class="chontieng">
+      </div>
+      <div class="chontieng">
 
-            <div class="dropdown">
-              <button class="dropbtn">
-                <img src="../assets/avatar/vn.svg" style="width: 15px; height:15px ;">
-                Tiếng Việt
-              </button>
-              <div class="dropdown-content">
-                <a href="#">English </a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
-              </div>
-            </div> 
-
+        <div class="dropdown">
+          <button class="dropbtn">
+            <img src="../assets/avatar/vn.svg" style="width: 15px; height:15px ;">
+            Tiếng Việt
+          </button>
+          <div class="dropdown-content">
+            <a href="#">English </a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
           </div>
+        </div>
 
+      </div>
       <div class="thongtin">
-        <img *ngIf="authService.hasUser" referrerpolicy="no-referrer" src="{{authService.user.photoURL}}" style="border-radius: 50%; width: 100%; height: 100%;">
-              <button class="dropbtn"></button>
-
-              <div class="thongtin-content">
-                <a href="info">Thông tin của bạn </a>
-                <a href="#">Bạn</a>
-                <a href="#" (click)="logout()">logout</a>
-              </div>
-
-
-        
+        <img *ngIf="authService.hasUser" referrerpolicy="no-referrer" src="{{authService.user.photoURL}}"
+          style="border-radius: 50%; width: 100%; height: 100%;">
+      </div>
+      <div style="margin: 0 10px 0 20px;">
+        <div class="dropdown">
+          <button class="dropbtn">
+            <img src="../assets/avatar/icon-128x128.png" style="width: 35px; height: 35px;">
+          </button>
+          <div class="dropdown-content">
+            <a href="info">Thông tin của bạn </a>
+            <a href="#">Bạn</a>
+            <a href="#" (click)="logout()" routerLink="/dangnhap">login/logout</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
   <nav class="nav__cont">
-    <ul class="nav" >
+    <ul class="nav">
       <li *ngFor="let item of menuLeft" class="nav__items ">
         <a href="/{{item.href}}">{{item.title}}</a>
       </li>
@@ -50,6 +51,8 @@
     <main style=" margin: 0 0 0 0px;">
     </main>
   </div>
-  <router-outlet style="margin: 0 0 0 100px;"></router-outlet>
+
+  <router-outlet></router-outlet>
+
+
 </div>
-  

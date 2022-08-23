@@ -10,6 +10,7 @@ import * as AuthActions from "../../../actions/auth.action";
 })
 export class DangkyComponent implements OnInit {
 
+ 
   constructor(private store:Store<{auth:AuthStates}>) { }
 
   ngOnInit(): void {

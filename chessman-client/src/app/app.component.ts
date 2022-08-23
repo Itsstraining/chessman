@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from './services/auth.service';
+import { Store } from '@ngrx/store';
+import * as AuthActions from '../actions/auth.action';
 
 @Component({
   selector: 'app-root',
@@ -49,4 +51,10 @@ export class AppComponent {
   logout(){
     this.authService.logout()
   }
+
+  login(){
+    this.authService.login()
+  }
+
+
 }
