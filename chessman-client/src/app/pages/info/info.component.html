@@ -1,11 +1,11 @@
 
-    <div class="card-info">
-    <div class="info-form">
+<div class="card-info">
+    <div class="info-form" >
         <div class="info-user">
-            <img class="avatar" src="https://i.pinimg.com/736x/ab/9e/53/ab9e53b748f4a45b1aaad922d0788d54.jpg">
+            <img *ngIf="authSevice.hasUser" class="avatar" referrerpolicy="no-referrer" src="{{authSevice.user.photoURL}}">
             <div class="infomation-user">
                 <div class="name-user">
-                    <span>hungtt</span>
+                    <span *ngIf="authSevice.hasUser">{{authSevice.user.displayName}}</span>
                 </div>
                 <div class="elo-flag">
                     <span style="font-size: 18px;">1200</span>
@@ -113,4 +113,4 @@
         </div>
     </div>
     </div>
-    </div>
+</div>

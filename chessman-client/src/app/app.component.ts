@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -41,4 +42,11 @@ export class AppComponent {
       href: 'loddy'
     },
   ]
+
+
+ 
+  constructor(public authService: AuthService){}
+  logout(){
+    this.authService.logout()
+  }
 }
