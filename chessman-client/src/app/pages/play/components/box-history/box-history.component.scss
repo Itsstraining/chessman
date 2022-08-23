@@ -2,6 +2,11 @@ p {
   padding: 0;
   margin: 0;
 }
+.vs {
+  color: #7fffd4;
+  font-size: 3em;
+  font-weight: 500;
+}
 .grapHistoryBox {
   margin-left: 5em;
   background-color: #22201e;
@@ -13,6 +18,7 @@ p {
     display: flex;
     justify-content: space-between;
     padding: 1em 5em 1em 5em;
+    align-items: center;
     .avatar {
       width: 7em;
     }
@@ -48,6 +54,7 @@ p {
     .graps {
       height: 62.5em;
       overflow-y: scroll;
+      border-bottom-left-radius: 1em;
       .row2 {
         display: flex;
         justify-content: space-between;
@@ -70,7 +77,6 @@ p {
     }
   }
 }
-
 
 /* width */
 ::-webkit-scrollbar {

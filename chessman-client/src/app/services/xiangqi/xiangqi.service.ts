@@ -109,6 +109,9 @@ export class XiangqiService {
     else if (chess.shotName.toLowerCase() == 'x') {
       ruleStr = '* up/* down/* left/* right'
     }
+    else if (chess.shotName.toLowerCase() == 'p') {
+      ruleStr = '* up/* down/* left/* right'
+    }
     else if (chess.shotName.toLowerCase() == 't') {
       ruleStr = '1 upleft-upleft/1 downleft-downleft/1 upright-upright/1 downright-downright'
     }
@@ -144,7 +147,7 @@ export class XiangqiService {
         //for
         for (let j = 0; j < graps.length; j++) {
           let move1 = this.moves.get(graps[j]) ?? { x: 0, y: 0 }
-          if (!this.onBoard({ x: (move1.x + boxTemp.x), y: (move1.y + boxTemp.y) })) {
+          if (!this.onLimit({ x: (move1.x + boxTemp.x), y: (move1.y + boxTemp.y) })) {
             grapErr = true
             break
           }
@@ -157,18 +160,17 @@ export class XiangqiService {
           }
         }
         //for
-
-        if (chess.limit.xFrom != -1 || chess.limit.xTo != -1 || chess.limit.yFrom != -1 || chess.limit.yTo != -1) {
-          if (chess.limit.yFrom != -1 && chess.limit.yTo != -1)
-            if (!(boxTemp.y >= chess.limit.yFrom && boxTemp.y <= chess.limit.yTo)) {
-              grapErr = true
-            }
-          if (chess.limit.xFrom != -1 && chess.limit.xTo != -1) {
-            if (!(boxTemp.x >= chess.limit.xTo && boxTemp.x <= chess.limit.xTo)) {
-              grapErr = true
-            }
+        if (chess.shotName.toLowerCase() == 't') {
+          if (!(boxTemp.y >= chess.limit.yFrom && boxTemp.y <= chess.limit.yTo)) {
+            grapErr = true
           }
         }
+        else if (chess.shotName.toLowerCase() == 's' || chess.shotName.toLowerCase() == 'v') {
+          if (!(boxTemp.x >= chess.limit.xFrom && boxTemp.x <= chess.limit.xTo && boxTemp.y >= chess.limit.yFrom && boxTemp.y <= chess.limit.yTo)) {
+            grapErr = true
+          }
+        }
+
         if (!grapErr) {
           if (
             !table[boxTemp.y][boxTemp.x].haveChess ||
@@ -183,17 +185,31 @@ export class XiangqiService {
         let move1 = this.moves.get(grapStr) ?? { x: 0, y: 0 }
         let isStop = false
         let j = 0
+        let stepOfCannon = false
         while (!isStop) {
           pTemp = { x: pTemp.x + move1.x, y: pTemp.y + move1.y }
-          if (this.onBoard(pTemp)) {
-            if (!table[pTemp.y][pTemp.x].haveChess) {
+          if (this.onLimit(pTemp)) {
+            if (!table[pTemp.y][pTemp.x].haveChess && !stepOfCannon) {
               tableEff[pTemp.y][pTemp.x].chess.shotName = '.'
             }
             else {
-              if (!this.isSameSide(chess.shotName, table[pTemp.y][pTemp.x].chess.shotName)) {
-                tableEff[pTemp.y][pTemp.x].chess.shotName = '.'
+              if (chess.shotName.toLowerCase() == 'p') {
+                if (!stepOfCannon) {
+                  stepOfCannon = true
+                }
+                else {
+                  if (!this.isSameSide(chess.shotName, table[pTemp.y][pTemp.x].chess.shotName)) {
+                    tableEff[pTemp.y][pTemp.x].chess.shotName = '.'
+                    isStop = true
+                  }
+                }
               }
-              isStop = true
+              else {
+                if (!this.isSameSide(chess.shotName, table[pTemp.y][pTemp.x].chess.shotName)) {
+                  tableEff[pTemp.y][pTemp.x].chess.shotName = '.'
+                }
+                isStop = true
+              }
             }
           } else {
             isStop = true
@@ -212,7 +228,7 @@ export class XiangqiService {
     let c3 = c1 + c2
     return c3.toUpperCase() == c3 || c3.toLocaleLowerCase() == c3
   }
-  onBoard(p: Position) {
+  onLimit(p: Position) {
     return p.x > -1 && p.y > -1 && p.x < 9 && p.y < 10
   }
   printChessTable(chessTable: ItemTable[][]) {
