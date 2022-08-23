@@ -13,8 +13,7 @@ export interface Chess {
   chessIconClass: string
   position: Position
   isPawnUp: boolean
-  limitFrom: Position
-  limitTo: Position
+  limit: limit
 }
 
 export interface Position {
@@ -22,3 +21,9 @@ export interface Position {
   y: number
 }
 
+export interface limit{
+  xFrom:number
+  yFrom:number
+  xTo:number
+  yTo:number
+}
