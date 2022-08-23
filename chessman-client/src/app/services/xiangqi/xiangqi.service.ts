@@ -11,6 +11,7 @@ export class XiangqiService {
   currenChessTable: Array<Array<ItemTable>> = []
   moves: Map<string, Position> = new Map()
   chessAsset: Map<string, Chess> = new Map()
+  limitTable = {}
 
   constructor() {
     this.createMoves()
@@ -29,10 +30,38 @@ export class XiangqiService {
           if (chessTxtS[j] != ' ') {
             let temp = this.chessAsset.get(chessTxtS[j])
             if (temp != undefined) {
+              //
+              let isUp = false
+              if (this.isSameSide(temp.shotName, player.chessControl.chessID)) {
+                isUp = player.isBase
+              }
+              //
 
               if (temp.shotName.toLocaleLowerCase() == 'c') {
-                if (this.isSameSide(temp.shotName, player.chessControl.chessID)) {
-                  temp.isPawnUp = player.isBase
+                temp.isPawnUp = isUp
+              }
+              else if (temp.shotName.toLocaleLowerCase() == 't') {
+                if (isUp) {
+                  temp.limit.yFrom = 5
+                  temp.limit.yTo = 9
+                }
+                else {
+                  temp.limit.yFrom = 0
+                  temp.limit.yTo = 4
+                }
+              }
+              else if (temp.shotName.toLocaleLowerCase() == 's' || temp.shotName.toLocaleLowerCase() == 'v') {
+                if (isUp) {
+                  temp.limit.yFrom = 7
+                  temp.limit.yTo = 9
+                  temp.limit.xFrom = 3
+                  temp.limit.xTo = 5
+                }
+                else {
+                  temp.limit.yFrom = 0
+                  temp.limit.yTo = 2
+                  temp.limit.xFrom = 3
+                  temp.limit.xTo = 5
                 }
               }
 
@@ -74,8 +103,6 @@ export class XiangqiService {
     let c = chess.position
     let ruleStr = ''
 
-    console.log(chess)
-
     if (chess.shotName.toLowerCase() == 'v') {
       ruleStr = '1 up/1 down/1 left/1 right'
     }
@@ -83,10 +110,10 @@ export class XiangqiService {
       ruleStr = '* up/* down/* left/* right'
     }
     else if (chess.shotName.toLowerCase() == 't') {
-      ruleStr = '* upleft/* downleft/* upright/* downright'
+      ruleStr = '1 upleft-upleft/1 downleft-downleft/1 upright-upright/1 downright-downright'
     }
-    else if (chess.shotName.toLowerCase() == 'h') {
-      ruleStr = '* upleft/* downleft/* upright/* downright/* up/* down/* left/* right'
+    else if (chess.shotName.toLowerCase() == 's') {
+      ruleStr = '1 upleft/1 downleft/1 upright/1 downright'
     }
     else if (chess.shotName.toLowerCase() == 'm') {
       ruleStr = '1 up-up-right/1 up-up-left/1 left-left-up/1 left-left-down/1 down-down-left/1 down-down-right/1 right-right-up/1 right-right-down'
@@ -114,6 +141,7 @@ export class XiangqiService {
         let graps = grapStr.split('-')
         let boxTemp = c
         let grapErr = false
+        //for
         for (let j = 0; j < graps.length; j++) {
           let move1 = this.moves.get(graps[j]) ?? { x: 0, y: 0 }
           if (!this.onBoard({ x: (move1.x + boxTemp.x), y: (move1.y + boxTemp.y) })) {
@@ -121,6 +149,25 @@ export class XiangqiService {
             break
           }
           boxTemp = { x: (move1.x + boxTemp.x), y: (move1.y + boxTemp.y) }
+          if (j == 0 && table[boxTemp.y][boxTemp.x].haveChess) {
+            if (chess.shotName.toLowerCase() == 'm' || chess.shotName.toLowerCase() == 't') {
+              grapErr = true
+              break
+            }
+          }
+        }
+        //for
+
+        if (chess.limit.xFrom != -1 || chess.limit.xTo != -1 || chess.limit.yFrom != -1 || chess.limit.yTo != -1) {
+          if (chess.limit.yFrom != -1 && chess.limit.yTo != -1)
+            if (!(boxTemp.y >= chess.limit.yFrom && boxTemp.y <= chess.limit.yTo)) {
+              grapErr = true
+            }
+          if (chess.limit.xFrom != -1 && chess.limit.xTo != -1) {
+            if (!(boxTemp.x >= chess.limit.xTo && boxTemp.x <= chess.limit.xTo)) {
+              grapErr = true
+            }
+          }
         }
         if (!grapErr) {
           if (
@@ -230,8 +277,12 @@ export class XiangqiService {
         y: -1
       },
       isPawnUp: false,
-      limitFrom: { x: -1, y: -1 },
-      limitTo: { x: -1, y: -1 },
+      limit: {
+        xFrom: -1,
+        xTo: -1,
+        yFrom: -1,
+        yTo: -1,
+      },
     }),
       this.chessAsset.set('v', {
         id: '',
@@ -244,8 +295,12 @@ export class XiangqiService {
           y: -1
         },
         isPawnUp: false,
-        limitFrom: { x: -1, y: -1 },
-        limitTo: { x: -1, y: -1 },
+        limit: {
+          xFrom: -1,
+          xTo: -1,
+          yFrom: -1,
+          yTo: -1,
+        },
       })
     this.chessAsset.set('s', {
       id: '',
@@ -258,8 +313,12 @@ export class XiangqiService {
         y: -1
       },
       isPawnUp: false,
-      limitFrom: { x: -1, y: -1 },
-      limitTo: { x: -1, y: -1 },
+      limit: {
+        xFrom: -1,
+        xTo: -1,
+        yFrom: -1,
+        yTo: -1,
+      },
     })
     this.chessAsset.set('t', {
       id: '',
@@ -272,8 +331,12 @@ export class XiangqiService {
         y: -1
       },
       isPawnUp: false,
-      limitFrom: { x: -1, y: -1 },
-      limitTo: { x: -1, y: -1 },
+      limit: {
+        xFrom: -1,
+        xTo: -1,
+        yFrom: -1,
+        yTo: -1,
+      },
     })
     this.chessAsset.set('m', {
       id: '',
@@ -286,8 +349,12 @@ export class XiangqiService {
         y: -1
       },
       isPawnUp: false,
-      limitFrom: { x: -1, y: -1 },
-      limitTo: { x: -1, y: -1 },
+      limit: {
+        xFrom: -1,
+        xTo: -1,
+        yFrom: -1,
+        yTo: -1,
+      },
     })
     this.chessAsset.set('x', {
       id: '',
@@ -300,8 +367,12 @@ export class XiangqiService {
         y: -1
       },
       isPawnUp: false,
-      limitFrom: { x: -1, y: -1 },
-      limitTo: { x: -1, y: -1 },
+      limit: {
+        xFrom: -1,
+        xTo: -1,
+        yFrom: -1,
+        yTo: -1,
+      },
     })
     this.chessAsset.set('c', {
       id: '',
@@ -314,8 +385,12 @@ export class XiangqiService {
         y: -1
       },
       isPawnUp: false,
-      limitFrom: { x: -1, y: -1 },
-      limitTo: { x: -1, y: -1 },
+      limit: {
+        xFrom: -1,
+        xTo: -1,
+        yFrom: -1,
+        yTo: -1,
+      },
     })
     this.chessAsset.set('V', {
       id: '',
@@ -328,8 +403,12 @@ export class XiangqiService {
         y: -1
       },
       isPawnUp: false,
-      limitFrom: { x: -1, y: -1 },
-      limitTo: { x: -1, y: -1 },
+      limit: {
+        xFrom: -1,
+        xTo: -1,
+        yFrom: -1,
+        yTo: -1,
+      },
     })
     this.chessAsset.set('S', {
       id: '',
@@ -342,8 +421,12 @@ export class XiangqiService {
         y: -1
       },
       isPawnUp: false,
-      limitFrom: { x: -1, y: -1 },
-      limitTo: { x: -1, y: -1 },
+      limit: {
+        xFrom: -1,
+        xTo: -1,
+        yFrom: -1,
+        yTo: -1,
+      },
     })
     this.chessAsset.set('T', {
       id: '',
@@ -356,8 +439,12 @@ export class XiangqiService {
         y: -1
       },
       isPawnUp: false,
-      limitFrom: { x: -1, y: -1 },
-      limitTo: { x: -1, y: -1 },
+      limit: {
+        xFrom: -1,
+        xTo: -1,
+        yFrom: -1,
+        yTo: -1,
+      },
     })
     this.chessAsset.set('M', {
       id: '',
@@ -370,8 +457,12 @@ export class XiangqiService {
         y: -1
       },
       isPawnUp: false,
-      limitFrom: { x: -1, y: -1 },
-      limitTo: { x: -1, y: -1 },
+      limit: {
+        xFrom: -1,
+        xTo: -1,
+        yFrom: -1,
+        yTo: -1,
+      },
     })
     this.chessAsset.set('X', {
       id: '',
@@ -384,8 +475,12 @@ export class XiangqiService {
         y: -1
       },
       isPawnUp: false,
-      limitFrom: { x: -1, y: -1 },
-      limitTo: { x: -1, y: -1 },
+      limit: {
+        xFrom: -1,
+        xTo: -1,
+        yFrom: -1,
+        yTo: -1,
+      },
     })
     this.chessAsset.set('C', {
       id: '',
@@ -398,8 +493,12 @@ export class XiangqiService {
         y: -1
       },
       isPawnUp: false,
-      limitFrom: { x: -1, y: -1 },
-      limitTo: { x: -1, y: -1 },
+      limit: {
+        xFrom: -1,
+        xTo: -1,
+        yFrom: -1,
+        yTo: -1,
+      },
     })
     this.chessAsset.set('P', {
       id: '',
@@ -412,8 +511,12 @@ export class XiangqiService {
         y: -1
       },
       isPawnUp: false,
-      limitFrom: { x: -1, y: -1 },
-      limitTo: { x: -1, y: -1 },
+      limit: {
+        xFrom: -1,
+        xTo: -1,
+        yFrom: -1,
+        yTo: -1,
+      },
     })
   }
   newChess() {
@@ -428,8 +531,12 @@ export class XiangqiService {
         y: -1
       },
       isPawnUp: false,
-      limitFrom: { x: -1, y: -1 },
-      limitTo: { x: -1, y: -1 },
+      limit: {
+        xFrom: -1,
+        xTo: -1,
+        yFrom: -1,
+        yTo: -1,
+      },
     }
     return chess
   }
