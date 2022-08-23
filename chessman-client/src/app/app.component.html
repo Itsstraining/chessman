@@ -25,7 +25,7 @@
           </div>
 
       <div class="thongtin">
-        <img src="../assets/avatar/919a59cfc56e41bcc423b06a44765593.png" alt="">
+        <img *ngIf="authService.hasUser" referrerpolicy="no-referrer" src="{{authService.user.photoURL}}" style="border-radius: 50%; width: 100%; height: 100%;">
               <button class="dropbtn"></button>
 
               <div class="thongtin-content">

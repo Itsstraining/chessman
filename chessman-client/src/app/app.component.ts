@@ -42,7 +42,10 @@ export class AppComponent {
       href: 'loddy'
     },
   ]
-  constructor(private authService: AuthService){}
+
+
+ 
+  constructor(public authService: AuthService){}
   logout(){
     this.authService.logout()
   }

@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./info.component.scss']
 })
 export class InfoComponent implements OnInit {
+  
   constructor(public authSevice:AuthService) {
     
   }
