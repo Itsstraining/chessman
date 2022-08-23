@@ -1,0 +1,132 @@
+<div class="app-room">
+  <div class="chonphong">
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+      <div>
+        <h1>CHỌN ĐỐI THỦ</h1>
+      </div>
+      <button class="btTao"> Tạo ván cờ mới</button>
+    </div>
+
+    <div class="carts">
+      <div class="cart" *ngFor="let item of dataRoom; let i = index">
+        <div class="row1">
+          <div class="c1">
+            <div class="avatar"><img width=" 40px" src="../../assets/avatar/{{item.avatarImg}}.png" alt="">
+            </div>
+          </div>
+          <div class="c2">
+            <p class="name">{{item.name}}</p>
+            <p class="rank">Xếp hạng {{item.rank}}</p>
+
+          </div>
+          <div class="c3">
+            <img width="20px" src="../../assets/avatar/{{item.conntryImg}}.svg" alt="">
+          </div>
+        </div>
+        <div class="row2">
+          <img src="../../assets/avatar/tải xuống.svg">
+          <p class="tinhdiem">tính điểm</p>
+        </div>
+        <div class="row3">
+          <div class="c1">
+            <p> {{item.timeMin}}p</p>
+          </div>
+          <div class="c2">
+            <p>công đồng</p>
+          </div>
+          <div class="c3">
+            <button class="thamgia">tham gia</button>
+          </div>
+        </div>
+
+        <div *ngIf="i == 7" class="break"></div>
+      </div>
+    </div>
+
+  </div>
+  <div class="choivoimay">
+    <div>
+      <h1>CHƠI VỚI MÁY</h1>
+    </div>
+
+    <div class="carts">
+      <div class="cart" *ngFor="let item of dataBot; let i = index">
+        <div class="row1">
+          <div class="c1">
+            <div class="avatar"><img width=" 40px" src="../../assets/avatar/{{item.avatarImg}}.png" alt="">
+            </div>
+          </div>
+          <div class="c2">
+            <p class="name">{{item.name}}</p>
+            <p class="rank">LV: {{item.lv}}</p>
+
+          </div>
+          <div class="c3">
+            <img width="20px" src="../../assets/avatar/{{item.conntryImg}}.svg" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="choivoimay">
+    <div>
+      <h1>TRẬN ĐẤU ĐANG DIỄN RA</h1>
+    </div>
+
+    <div class="carts">
+
+      <div class="cart" *ngFor="let item of dataWatch">
+        <div class="row1">
+          <div class="c1">
+            <div class="avatar"><img width=" 40px" src="../../assets/avatar/{{item.p1.avatarImg}}.png" alt="">
+            </div>
+          </div>
+          <div class="c2">
+            <p class="name">{{item.p1.name}}</p>
+            <p class="rank">LV: {{item.p1.rank}}</p>
+          </div>
+          <div class="c3">
+            <img width="20px" src="../../assets/avatar/{{item.p1.conntryImg}}.svg" alt="">
+          </div>
+
+          <div>
+            <p class="vs">VS</p>
+          </div>
+
+          <div class="c1">
+            <div class="avatar"><img width=" 40px" src="../../assets/avatar/{{item.p2.avatarImg}}.png" alt="">
+            </div>
+          </div>
+          <div class="c2">
+            <p class="name">{{item.p2.name}}</p>
+            <p class="rank">LV: {{item.p2.rank}}</p>
+          </div>
+          <div class="c3">
+            <img width="20px" src="../../assets/avatar/{{item.p2.conntryImg}}.svg" alt="">
+          </div>
+        </div>
+        <div class="row4">
+          <div class="c1">
+            <img src="../../assets/avatar/tải xuống.svg" style="margin: 5px 5px 5px 5px;">
+            <p class="tinhdiem">tính điểm</p>
+          </div>
+          <div class="c2">
+            <i class="fi fi-br-eye"></i>
+            <p>10</p>
+          </div>
+        </div>
+        <div class="row4">
+          <div class="c1">
+            <img src="../../assets/avatar/co.svg">
+            <p class="a">Nước đã đi: 21 (4 Phút trước)</p>
+          </div>
+          <div class="c2"><button class="thamgia">Tham gia</button></div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

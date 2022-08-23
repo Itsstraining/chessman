@@ -10,6 +10,14 @@ export class AppComponent {
   title = 'Chessman';
   menuLeft = [
     {
+      title: 'Play',
+      href: 'play'
+    },
+    {
+      title: 'Chọn phòng',
+      href: 'Room'
+    },
+    {
       title: 'Đăng ký',
       href: 'dangky'
     },
@@ -41,12 +49,13 @@ export class AppComponent {
       title: 'Lobby',
       href: 'loddy'
     },
+
   ]
 
 
- 
-  constructor(public authService: AuthService){}
-  logout(){
+
+  constructor(public authService: AuthService) { }
+  logout() {
     this.authService.logout()
   }
 }

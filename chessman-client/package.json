@@ -21,6 +21,7 @@
     "@angular/platform-browser": "^14.0.0",
     "@angular/platform-browser-dynamic": "^14.0.0",
     "@angular/router": "^14.0.0",
+    "@flaticon/flaticon-uicons": "^1.7.0",
     "@ngrx/effects": "^14.2.0",
     "@ngrx/store": "^14.2.0",
     "rxjs": "~7.5.0",
