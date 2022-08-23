@@ -1,6 +1,58 @@
 <div class="grapHistoryBox">
+  <div class="row">
+    <div class="c1">
+      <div><img class="avatar" src="../../../../../assets/avatar/a2.png"></div>
+      <div><span style="font-size: 22px;">hungtt</span></div>
+      <div><span style="font-size: 12px;">Elo: 1200</span></div>
+    </div>
+    <div class="c1">
+      <div><img class="avatar" src="../../../../../assets/avatar/a3.png"></div>
+      <div><span style="font-size: 22px;">hungtt</span></div>
+      <div><span style="font-size: 12px;">Elo: 1200</span></div>
+    </div>
+  </div>
 
+  <div class="content">
+    <div class="row1">
+      <div><i class="fi fi-sr-time-quarter-to"></i>
+        <p>9 : 22</p>
+      </div>
+      <div><i class="fi fi-sr-time-quarter-to"></i>
+        <p>8 : 55</p>
+      </div>
 
+    </div>
 
+    <div class="graps">
 
+      <div class="row2" *ngFor="let item of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]; let i=index"
+        [style.background-color]="i%2==0 ? 'rgb(80 80 80)' : '#373737'">
+      <div class="c1">
+        <div>
+          <p>{{i*2+1}}</p>
+        </div>
+        <div><img src="../assets/xiangqi/wp.png" alt=""></div>
+        <div>
+          <p>D5</p>
+        </div>
+        <div><i class="fi fi-rr-caret-right"></i></div>
+        <div>
+          <p>E1</p>
+        </div>
+      </div>
+      <div class="c1">
+        <div>
+          <p>{{i*2+2}}</p>
+        </div>
+        <div><img src="../assets/xiangqi/wp.png" alt=""></div>
+        <div>
+          <p>D5</p>
+        </div>
+        <div><i class="fi fi-rr-caret-right"></i></div>
+        <div>
+          <p>E1</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
