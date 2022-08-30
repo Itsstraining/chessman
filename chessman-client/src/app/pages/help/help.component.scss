@@ -1,0 +1,42 @@
+.body{
+    margin: 50px 50px 100px 100px;
+    font-size: calc(100vw * (14 / 2560));
+}
+.ND{
+
+    font-size: 2em;
+    display: flex; 
+    margin: 0 0 3em 0;
+    
+}
+.GTC{
+    display: block;
+}
+
+.QC{
+    .ND{
+        display: block;
+    }
+    img{
+        width: 3em;
+        height: 3em;
+    }
+td{
+    width: 4em;
+}
+}
+.CXC{
+    font-size: 2em;
+}
+.CDC{
+    font-size: 2em;
+
+}
+.KTTD{
+    display: flex;
+    .ND{
+        margin: 0 3em 0 0;
+        display: block;
+        
+    }
+}
