@@ -1,8 +1,101 @@
+p {
+  padding: 0;
+  margin: 0;
+}
+.vs {
+  color: #7fffd4;
+  font-size: 3em;
+  font-weight: 500;
+}
 .grapHistoryBox {
   margin-left: 5em;
   background-color: #22201e;
   width: 100%;
-  height: 81.6em;
+  height: 79.6em;
   border-radius: 10px;
+  margin-top: 4em;
+  .row {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em 5em 1em 5em;
+    align-items: center;
+    .avatar {
+      width: 7em;
+    }
+    .c1 {
+      text-align: center;
+    }
+    .c2 {
+      text-align: center;
+    }
+  }
+  .content {
+    width: 100%;
 
+    .row1 {
+      background-color: #373737;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 4em;
+      div {
+        display: flex;
+        align-items: center;
+        padding: 1em;
+        font-size: 1.5em;
+        p {
+          padding-left: 0.2em;
+        }
+      }
+      div:hover {
+        color: rgb(209, 108, 108);
+        cursor: pointer;
+      }
+    }
+    .graps {
+      height: 62.5em;
+      overflow-y: scroll;
+      border-bottom-left-radius: 1em;
+      .row2 {
+        display: flex;
+        justify-content: space-between;
+        padding: 1.3em 7.6em;
+        p {
+          font-size: 1.3em;
+          font-weight: 500;
+        }
+        .c1 {
+          align-items: center;
+          display: flex;
+          img {
+            width: 2em;
+          }
+          div {
+            padding-right: 1em;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 1em;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 0.5em;
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 0.5em;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

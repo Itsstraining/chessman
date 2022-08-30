@@ -45,8 +45,8 @@
   </div>
   <nav class="nav__cont">
     <ul class="nav">
-      <li *ngFor="let item of menuLeft" class="nav__items ">
-        <a href="/{{item.href}}">{{item.title}}</a>
+      <li [routerLink]="item.href" *ngFor="let item of menuLeft" class="nav__items ">
+        <a>{{item.title}}</a>
       </li>
     </ul>
   </nav>

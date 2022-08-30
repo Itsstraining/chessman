@@ -6,12 +6,11 @@ import { PlayComponent } from './play.component';
 import { BoardComponent } from './components/board/board.component';
 import { BoxHistoryComponent } from './components/box-history/box-history.component';
 
-
 @NgModule({
   declarations: [
     PlayComponent,
     BoardComponent,
-    BoxHistoryComponent
+    BoxHistoryComponent,
   ],
   imports: [
     CommonModule,
