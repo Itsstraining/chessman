@@ -1,0 +1,221 @@
+.background{
+    font-size: calc(100vw * (14 / 2560));
+    height: 50%;
+    background-color: #312E2B;
+}
+.taotrandau{
+    display: flex;
+    height: 100%;
+    background-color: #312E2B;
+}
+img{
+    width: 20%;
+}
+
+.play-quick-links{
+    
+    padding-left: 26em;
+    align-items: center;
+    width: 18%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    
+}
+
+.play-quick-title{
+    font-size: 2.4em;
+}
+.tournaments-title{
+    font-size: 1.4em;
+    color: hsla(0,0%,100%,.4);
+}
+i:hover{
+    background-color: hsla(0,0%,100%,.05);
+}
+
+.shadow{
+    text-decoration:none;
+    width: 100%;
+    background-color: #272522; 
+    padding: 0.5em ;
+    border-radius: 3%;
+    color: white;
+   display: flex; 
+    column-gap: 1rem;
+    
+    align-items: center;
+}
+.shadow:hover{
+    background-color: hsla(0,0%,100%,.05);
+}
+.form-elo{
+    background-color: #272522;
+    margin-left:7em;
+    margin-bottom: 25%;
+    width: 20%;
+    height: 60%;
+    border-radius: 0.3em;
+    color: gray;
+    text-align: center;
+    font-size: 16px;
+}
+.elo{
+    display: flex;
+    align-items: center;
+    margin: 5%;
+    margin-left: 20%;
+}
+.fi-ss-trophy{
+    margin-left: 3em;
+    color: yellow;
+}
+.fi-sr-info{
+    float:right;
+    margin-right:2%;
+    color: gray;
+}
+.fi-sr-info:hover{
+    color: white;
+}
+.rank{
+    padding-top: 1em;
+    margin-left: 1em;
+    padding-bottom: 1em;
+}
+.tournaments{
+    margin-left: 18em;
+   
+    width: 18%;
+
+}
+.fi-sr-bolt{
+    color: #ffc800;
+    font-size: 2em;
+}
+.fi-sr-chess-queen{
+    color: #71604e;
+    font-size: 2em;
+}
+.fi-sr-home{
+    color: #3a729c;
+    font-size: 2em;
+}
+.giaidau{
+    text-decoration:none;
+    margin-top: 0.2em;
+    width: 100%;
+    background-color: #272522;
+    font-size: 1.0em;
+    padding: 0.8em ;
+    border-radius: 0.3em;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+}
+.h2{
+    background-color: #312E2B;
+    display: flex;
+}
+.title{
+    text-decoration:none;
+    color: white;  
+}
+.title-new{
+    font-size: 1.5em;
+    color: hsla(0,0%,100%,.4);
+    font-weight: 500;
+}
+
+.tintuc{
+    width:75%;
+    background-color: #272522;
+    border-radius: 2%;
+    color: white;  
+    margin-left: 25em;
+}
+.watch-more-new{
+    text-decoration:none;
+    margin-left:42em; 
+    font-size: 2em;
+    color: white;  
+}
+.formcothe{
+    margin-right: 20em;
+    background-color: #272522;
+    width: 33%;
+    border-radius: 1%;
+    color: white;  
+}
+.xem-them-co-the{
+    text-decoration:none;
+    margin-left:10em;
+    font-size: 2em;
+    color: white; 
+    
+}
+img{
+    border-radius: 10%;
+}
+.header{
+    padding-bottom: 0.5em;
+    width: 100%;
+    padding-top: 3em;
+    padding-left: 25.5em;
+    
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    
+}
+.bar{
+    width: 100%;
+    display: flex;
+    column-gap: 1rem;
+    font-size: 2em;
+    
+}
+.fi-sr-users{
+    color: hsla(0,0%,100%,.4);
+    text-decoration:none;
+}
+.fi-sr-users:hover{
+    color: white;
+    
+}
+.fi-sr-envelope{
+    color: hsla(0,0%,100%,.4);
+    text-decoration:none;
+}
+.fi-sr-envelope:hover{
+    color: white;
+    
+}
+.fi-sr-chess-knight-alt{
+    color: hsla(0,0%,100%,.4);
+    text-decoration:none;
+}
+.fi-sr-chess-knight-alt:hover{
+    color: white;
+}
+.fi-sr-settings{
+    color: hsla(0,0%,100%,.4);
+    text-decoration:none;
+}
+.fi-sr-settings:hover{
+    color: white;
+}
+.toolbar-menu{
+    margin-left: 27em;
+    display: flex;
+    
+}
+.toolbar-icon-menu{
+    float: right;
+    margin-left: 30%;
+    text-decoration:none;
+}
+
+
