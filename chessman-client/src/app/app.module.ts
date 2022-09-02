@@ -13,9 +13,11 @@ import { EffectsModule } from '@ngrx/effects';
 import { authReducer } from 'src/reducers/auth.reducer';
 import { AuthEffects } from 'src/effects/auth.effect';
 
+
 @NgModule({
   declarations: [
     AppComponent,
+
   ],
   imports: [
     BrowserModule,
