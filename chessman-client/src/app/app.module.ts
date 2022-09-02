@@ -7,6 +7,11 @@ import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { provideDatabase,getDatabase } from '@angular/fire/database';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { authReducer } from 'src/reducers/auth.reducer';
+import { AuthEffects } from 'src/effects/auth.effect';
 
 
 @NgModule({
@@ -19,7 +24,14 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
     AppRoutingModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore())
+    provideFirestore(() => getFirestore()),
+    provideDatabase(() => getDatabase()),
+    StoreModule.forRoot({
+      auth: authReducer
+    }, {}),
+    EffectsModule.forRoot([
+      AuthEffects
+    ]),
   ],
   providers: [],
   bootstrap: [AppComponent]

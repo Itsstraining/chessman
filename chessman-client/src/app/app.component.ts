@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { AuthService } from './services/auth.service';
+import { Store } from '@ngrx/store';
+import * as AuthActions from '../actions/auth.action';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +11,14 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'Chessman';
   menuLeft = [
+    {
+      title: 'Play',
+      href: 'play'
+    },
+    {
+      title: 'Chọn phòng',
+      href: 'Room'
+    },
     {
       title: 'Đăng ký',
       href: 'dangky'
@@ -40,5 +51,19 @@ export class AppComponent {
       title: 'Lobby',
       href: 'loddy'
     },
+
   ]
+
+
+
+  constructor(public authService: AuthService) { }
+  logout() {
+    this.authService.logout()
+  }
+
+  login(){
+    this.authService.login()
+  }
+
+
 }

@@ -12,7 +12,9 @@ const routes: Routes = [
   { path: 'game', loadChildren: () => import('./pages/game/game.module').then(m => m.GameModule) },
   { path: 'lobby', loadChildren: () => import('./pages/lobby/lobby.module').then(m => m.LobbyModule) },
   { path: 'play', loadChildren: () => import('./pages/play/play.module').then(m => m.PlayModule) },
-  
+
+  { path: 'Room', loadChildren: () => import('./pages/room/room.module').then(m => m.RoomModule) },
+  { path: 'help', loadChildren: () => import('./pages/help/help.module').then(m => m.HelpModule) },
 ];
 
 @NgModule({

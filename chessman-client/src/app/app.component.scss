@@ -20,9 +20,9 @@
   transition: width 0.3s ease;
 
   box-shadow: 4px 7px 10px rgba(0, 0, 0, 0.4);
-  &:hover {
-    // width: 200px;
-  }
+  // &:hover {
+  //   // width: 200px;
+  // }
   @media screen and (min-width: 600px) {
     // width: 80px;
   }
@@ -106,4 +106,125 @@ h1 {
   color: white;
   letter-spacing: 6px;
   text-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
+}
+
+.taskbar{
+  width: 100%;
+  height: 60px;
+  background-color: #202020;
+ .avatar{
+  display: flex;
+  float: right;
+  width: 20%;
+  -webkit-box-align: center;
+  align-items: center;
+  .chontieng{
+    height: 40px;
+    margin: 5px;
+    background-color: #000000;
+    color: white;
+    button{
+      width: 100%;
+      height: 100%;
+      background-color: #202020;
+    }
+    
+  }
+  
+
+
+
+  }
+ }
+  
+
+
+
+.thongtin{
+  float: left;
+  overflow: hidden;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+.thongtin .dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+.thongtin-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  margin-top: -40px;
+}
+.thongtin-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.thongtin-content a:hover {
+  background-color: #ddd;
+}
+
+.thongtin:hover .thongtin-content {
+  display: block;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: white;
+  padding: 10px 10px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: red;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
 }
