@@ -270,7 +270,6 @@ export class XiangqiService {
     for (let i = 0; i < table.length; i++) {
       for (let j = 0; j < table[i].length; j++) {
         if (this.isAlly(chessEnemy.shotName, table[i][j].chess.shotName)) {
-          console.log(chessEnemy.shotName)
           if (this.isCheckmat(table[i][j].chess, table)) {
             return true
           }
@@ -339,7 +338,44 @@ export class XiangqiService {
       }
     }
   }
-
+  setDrawOrWin(table: Cell[][], currentPlayer: Player) {
+    let breakFor = false
+    let noTurn = true
+    for (let i = 0; i < table.length; i++) {
+      if (breakFor) break
+      for (let j = 0; j < table[i].length; j++) {
+        if (breakFor) break
+        if (table[i][j].hasChess && this.isAlly(currentPlayer.chessControl.chessIDControl, table[i][j].chess.name)) {
+          let dots = this.getDots(table[i][j].chess, table)
+          let dotsban = this.getDotban(table[i][j].chess, table, dots)
+          for (let ii = 0; ii < dots.length; ii++) {
+            if (breakFor) break
+            for (let jj = 0; jj < dots[ii].length; jj++) {
+              if (breakFor) break
+              if (dots[ii][jj] && !dotsban[ii][jj]) {
+                noTurn = false
+                breakFor = true
+              }
+            }
+          }
+        }
+      }
+    }
+    // if (noTurn) {
+    //   if (currentPlayer.chessControl.isCheckmat) {
+    //     console.log('het co')
+    //     this.gameOver.next({
+    //       isDraw: false,
+    //       winer: currentPlayer
+    //     })
+    //   } else if (!currentPlayer.chessControl.isCheckmat) {
+    //     this.gameOver.next({
+    //       isDraw: true,
+    //       winer: currentPlayer
+    //     })
+    //   }
+    // }
+  }
 
 
 

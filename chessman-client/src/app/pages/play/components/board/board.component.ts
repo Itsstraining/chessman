@@ -79,6 +79,7 @@ export class BoardComponent implements OnInit {
       if (isCheckmat) {
         this.gameService.getCurrentUser().chessControl.isCheckmat = true
       }
+      this.chessService.setDrawOrWin(this.table, this.gameService.getCurrentUser())
     }
     this.clearTableEff()
   }
