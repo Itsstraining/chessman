@@ -1,30 +1,36 @@
-<div class="board selectDisable">
-  <div *ngFor="let i of [0,1,2,3,4,5,6,7,8,9]" class="row">
-    <div (drop)="drop($event,table[i][j].position)" (dragover)="allowDrop($event)" class="cel"
-      *ngFor="let j of [0,1,2,3,4,5,6,7,8]">
-      <div class="checkmatImg"
-      *ngIf="
-      table[i][j].chess.shotName.toLowerCase() == 'v' &&
-      gameService.getCurrentUser().chessControl.isCheckmat &&
-      chessService.isAlly(gameService.getCurrentUser().chessControl.chessIDControl, table[i][j].chess.shotName)">
-        <svg width="194" height="194" viewBox="0 0 194 194" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M97 187C146.706 187 187 146.706 187 97C187 47.2944 146.706 7 97 7C47.2944 7 7 47.2944 7 97C7 146.706 47.2944 187 97 187Z"
-            stroke="#FA1010" stroke-opacity="0.4" stroke-width="13" />
-        </svg>
-      </div>
+<div style="display: flex;">
+  <!-- <div class="indexs">
+    <div *ngFor="let item of [10,9,8,7,6,5,4,3,2,1]" class="index">{{item}}</div>
+  </div> -->
+  <div class="board selectDisable">
+    <div *ngFor="let i of [0,1,2,3,4,5,6,7,8,9]" class="row">
+      <div (drop)="drop($event,table[i][j].position)" (dragover)="allowDrop($event)" class="cel"
+        *ngFor="let j of [0,1,2,3,4,5,6,7,8]">
+        <div class="checkmatImg" *ngIf="
+        table[i][j].chess.shotName.toLowerCase() == 'v' &&
+        gameService.getCurrentUser().chessControl.isCheckmat &&
+        chessService.isAlly(gameService.getCurrentUser().chessControl.chessIDControl, table[i][j].chess.shotName)">
+          <svg width="194" height="194" viewBox="0 0 194 194" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M97 187C146.706 187 187 146.706 187 97C187 47.2944 146.706 7 97 7C47.2944 7 7 47.2944 7 97C7 146.706 47.2944 187 97 187Z"
+              stroke="#FA1010" stroke-opacity="0.4" stroke-width="13" />
+          </svg>
+        </div>
 
-      <img *ngIf="table[i][j].hasChess" class="draggable"
-        src="../../../../../assets/xiangqi/{{table[i][j].chess.chessImg}}" draggable="true"
-        (mousedown)="mousedownImg($event, table[i][j].chess)" (dragstart)="drag($event)" id="{{table[i][j].chess.id}}"
-        (dragend)="dragend($event, table[i][j].position)">
+        <img *ngIf="table[i][j].hasChess" class="draggable"
+          src="../../../../../assets/xiangqi/{{table[i][j].chess.chessImg}}" draggable="true"
+          (mousedown)="mousedownImg($event, table[i][j].chess)" (dragstart)="drag($event)" id="{{table[i][j].chess.id}}"
+          (dragend)="dragend($event, table[i][j].position)">
 
-      <!-- <div  class="dot1"></div> -->
-      <div *ngIf="(fPosition.x == j && fPosition.y == i) || (tPosition.x == j && tPosition.y == i)">
-        <img class="turn" src="../../../../../assets/Group 22.svg" alt="">
+        <!-- <div  class="dot1"></div> -->
+        <div *ngIf="(fPosition.x == j && fPosition.y == i) || (tPosition.x == j && tPosition.y == i)">
+          <img class="turn" src="../../../../../assets/Group 22.svg" alt="">
+        </div>
+        <div *ngIf="table[i][j].hasDot" class="dot"
+          [ngClass]="{'dot': !table[i][j].hasDotBan, 'dot1' : table[i][j].hasDotBan }"></div>
       </div>
-      <div *ngIf="table[i][j].hasDot" class="dot"
-              [ngClass]="{'dot': !table[i][j].hasDotBan, 'dot1' : table[i][j].hasDotBan }"></div>
     </div>
   </div>
 </div>
+<!-- <div style="display: flex;margin: -3em 0 0 5.8em;"><div class="txtindex" *ngFor="let item of ['a','b','c','d','e','f','g','h','i',]">{{item}}</div></div> -->
+

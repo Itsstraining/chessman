@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ReplaySubject } from 'rxjs';
 import { Chess, Cell, Position } from 'src/app/models/chess.model';
 import { Player } from 'src/app/models/player.model';
 import { ShareService } from '../share.service';
@@ -12,10 +13,12 @@ export class XiangqiService {
   currenChessTable: Array<Array<Cell>> = []
   moves: Map<string, Position> = new Map()
   chessAsset: Map<string, Chess> = new Map()
+  gameOver: ReplaySubject<{ isDraw: boolean, winer: Player }>
 
   constructor(private shareService: ShareService) {
     this.createMoves()
     this.createChessAsset()
+    this.gameOver = new ReplaySubject(3);
   }
   //  xmtsvstmx|        | p    p |c c c c c|       |        |XMTSVSTMX|        | P    P |C C C C C
   setTable(txtTable: string, chessTable: Cell[][], player: Player): Cell[][] {
@@ -345,7 +348,7 @@ export class XiangqiService {
       if (breakFor) break
       for (let j = 0; j < table[i].length; j++) {
         if (breakFor) break
-        if (table[i][j].hasChess && this.isAlly(currentPlayer.chessControl.chessIDControl, table[i][j].chess.name)) {
+        if (table[i][j].hasChess && this.isAlly(currentPlayer.chessControl.chessIDControl, table[i][j].chess.shotName)) {
           let dots = this.getDots(table[i][j].chess, table)
           let dotsban = this.getDotban(table[i][j].chess, table, dots)
           for (let ii = 0; ii < dots.length; ii++) {
@@ -361,20 +364,12 @@ export class XiangqiService {
         }
       }
     }
-    // if (noTurn) {
-    //   if (currentPlayer.chessControl.isCheckmat) {
-    //     console.log('het co')
-    //     this.gameOver.next({
-    //       isDraw: false,
-    //       winer: currentPlayer
-    //     })
-    //   } else if (!currentPlayer.chessControl.isCheckmat) {
-    //     this.gameOver.next({
-    //       isDraw: true,
-    //       winer: currentPlayer
-    //     })
-    //   }
-    // }
+    if (noTurn) {
+      this.gameOver.next({
+        isDraw: false,
+        winer: currentPlayer
+      })
+    }
   }
 
 

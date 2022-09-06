@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Chess, Cell, Position } from 'src/app/models/chess.model';
 import { Player } from 'src/app/models/player.model';
+import { AIService } from 'src/app/services/AI/ai.service';
 import { GameService } from 'src/app/services/game/game.service';
 import { ShareService } from 'src/app/services/share.service';
 import { XiangqiService } from 'src/app/services/xiangqi/xiangqi.service';
@@ -21,7 +22,8 @@ export class BoardComponent implements OnInit {
     public chessService: XiangqiService,
     private playerService: GameService,
     private shareService: ShareService,
-    public gameService: GameService
+    public gameService: GameService,
+    private AI: AIService
   ) {
     this.currentPlayer = this.playerService.getUserById(this.gameService.currentUserIDControll)
     this.chess = chessService.newChess()
@@ -30,9 +32,6 @@ export class BoardComponent implements OnInit {
     let strBoard = 'XMTSVSTMX|         | P     P |C C C C C|         |         |c c c c c| p     p |         |xmtsvstmx'
     this.chessService.currenChessTable = this.chessService.setTable(strBoard, this.chessService.currenChessTable, this.playerService.player1)
     this.table = chessService.currenChessTable
-  }
-
-  ngOnInit(): void {
   }
 
   //cầm con cờ
@@ -82,10 +81,51 @@ export class BoardComponent implements OnInit {
       this.chessService.setDrawOrWin(this.table, this.gameService.getCurrentUser())
     }
     this.clearTableEff()
+    this.AI.setMove()
   }
 
   clearTableEff() {
     this.chessService.clearTableDot(this.table)
+  }
+
+  ngOnInit(): void {
+    this.gameService.time.isTimeOut.subscribe((isTimeOut) => {
+      console.log('het gio')
+      // this.gameService.endGame()
+      // if (isTimeOut == true) {
+      //   const dialogRef = this.dialog.open(DialogWinComponent, {
+      //     panelClass: 'dialogWin',
+      //     width: '42em',
+      //   });
+      //   dialogRef.afterClosed().subscribe(result => {
+      //     console.log(`Dialog result: ${result}`);
+      //   });
+      // }
+    });
+    this.chessService.gameOver.subscribe(e => {
+      // this.gameService.endGame()
+      if (e.isDraw) {
+        console.log('hoa co')
+
+        // const dialogRef = this.dialog.open(DialogDrawComponent, {
+        //   panelClass: 'dialogDraw',
+        //   width: '42em',
+        // });
+        // dialogRef.afterClosed().subscribe(result => {
+        //   console.log(`Dialog result: ${result}`);
+        // });
+      } else {
+        console.log('het co')
+        console.log(e.winer.name+' is winer')
+        // const dialogRef = this.dialog.open(DialogWinComponent, {
+        //   panelClass: 'dialogWin',
+        //   width: '42em',
+        // });
+        // dialogRef.afterClosed().subscribe(result => {
+        //   console.log(`Dialog result: ${result}`);
+        // });
+      }
+    })
   }
 }
 

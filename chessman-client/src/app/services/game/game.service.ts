@@ -7,20 +7,19 @@ import { XiangqiService } from '../xiangqi/xiangqi.service';
   providedIn: 'root'
 })
 export class GameService {
+  mode = 0 //0 off, 1 with AI, 2 online
+
   isGameStart = false
   currentUserIDControll = ''
   time = new Timer()
-
   /////
   timePerMove = 30
-
   player1: Player
   player2: Player
 
-
   constructor(private xiangqiS: XiangqiService) {
-    this.player1 = this.newPlayer('user2', 'HungTT', 1222, 'a3', 'xmtsvspc', true)
-    this.player2 = this.newPlayer('user1', 'DucTH', 1230, 'a2', 'XMTSVSPC', false)
+    this.player1 = this.newPlayer('baszsdasjhdas', 'Player1', 1222, 'a3', 'xmtsvspc', true)
+    this.player2 = this.newPlayer('lkajshkldjask', 'Player2', 1230, 'a2', 'XMTSVSPC', false)
   }
   startGame(player1: Player, player2: Player) {
     this.isGameStart = true;
@@ -78,6 +77,7 @@ export class GameService {
       name: name,
       elo: elo,
       img: img,
+      isBOT: false,
       isBase: isBase,
       chessControl: {
         chessIDControl: control,

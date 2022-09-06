@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogCreateNewGameComponent } from 'src/app/components/dialog/dialog-create-new-game/dialog-create-new-game.component';
 import { GameService } from 'src/app/services/game/game.service';
 
 @Component({
@@ -8,7 +10,7 @@ import { GameService } from 'src/app/services/game/game.service';
 })
 export class BoxHistoryComponent implements OnInit {
 
-  constructor(public gameService: GameService) { }
+  constructor(public gameService: GameService, private dialog: MatDialog ) { }
 
   ngOnInit(): void {
   }
@@ -168,9 +170,10 @@ export class BoxHistoryComponent implements OnInit {
   ]
 
   startGame() {
-    if (this.gameService.enoughPlayer()) {
-      this.gameService.startGame(this.gameService.player1, this.gameService.player2)
-    }
+    this.dialog.open(DialogCreateNewGameComponent);
+    // if (this.gameService.enoughPlayer()) {
+    //   this.gameService.startGame(this.gameService.player1, this.gameService.player2)
+    // }
   }
 
   getValueToProcessBar(uid: string) {

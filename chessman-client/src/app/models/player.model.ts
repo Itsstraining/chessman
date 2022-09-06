@@ -7,6 +7,7 @@ export interface Player{
   elo: number
   img: string
   isBase: boolean
+  isBOT: boolean
   chessControl: ChessControl,
 }
 

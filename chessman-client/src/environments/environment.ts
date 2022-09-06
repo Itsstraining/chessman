@@ -12,7 +12,8 @@ export const environment = {
     messagingSenderId: '359068702954',
     measurementId: 'G-Y25D96KBQN',
   },
-  production: false
+  production: false,
+  endpoint: 'http://localhost:3000/'
 };
 
 /*
