@@ -1,0 +1,84 @@
+.dialog-create-game {
+  font-size: calc(100vw * (14 / 2560));
+  background-color: #232323;
+  width: 35em;
+  border-radius: 0.3em;
+  color: #c1c1c1;
+  padding-bottom: 4em;
+  p {
+    padding: 0px;
+    margin: 0px;
+  }
+}
+p {
+  padding: 0;
+  margin: 0;
+  font-family: "Quicksand", sans-serif;
+}
+.row {
+  display: flex;
+}
+.rCancel {
+  padding: 1.3em 1.3em 0;
+  justify-content: right;
+  i {
+    font-size: 2em;
+    transform: rotate(45deg);
+    transition: transform 0.3s;
+  }
+  i:hover{
+    transform: rotate(90deg);
+  }
+}
+.title {
+  justify-content: center;
+  font-size: 1.7em;
+  font-weight: 700;
+  padding-bottom: 1em;
+}
+.nomal {
+  justify-content: center;
+  font-size: 1.2em;
+  font-weight: 500;
+  padding-bottom: 1em;
+}
+.btOption {
+  border: #e3e3e3 solid 0.5px;
+  display: flex;
+  padding: 0.5em;
+  margin: 1.6em 2em 2em;
+  border-radius: 0.3em;
+  .bt {
+    border-radius: 0.3em;
+    width: 50%;
+    padding: 1em 0;
+    display: flex;
+    justify-content: center;
+  }
+  .bt1 {
+    border-radius: 0.3em;
+    width: 50%;
+    padding: 1em 0;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.setting-time-box {
+  padding: 0em 2.3em;
+  mat-slider {
+    width: 100%;
+  }
+}
+
+.btCreate{
+  background-color: #C2352E;
+    border-radius: 0.5em;
+    padding: 1em 3em;
+    font-size: 1.5em;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3em;
+}

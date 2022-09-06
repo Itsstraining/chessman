@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Chess, ItemTable, Position } from 'src/app/models/chess.model';
+import { Chess, Cell, Position } from 'src/app/models/chess.model';
 import { Player } from 'src/app/models/player.model';
+import { ShareService } from '../share.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,19 +9,16 @@ import { Player } from 'src/app/models/player.model';
 
 export class XiangqiService {
 
-  currenChessTable: Array<Array<ItemTable>> = []
+  currenChessTable: Array<Array<Cell>> = []
   moves: Map<string, Position> = new Map()
   chessAsset: Map<string, Chess> = new Map()
-  limitTable = {}
 
-  constructor() {
+  constructor(private shareService: ShareService) {
     this.createMoves()
     this.createChessAsset()
   }
-
-
   //  xmtsvstmx|        | p    p |c c c c c|       |        |XMTSVSTMX|        | P    P |C C C C C
-  setTable(txtTable: string, chessTable: ItemTable[][], player: Player): ItemTable[][] {
+  setTable(txtTable: string, chessTable: Cell[][], player: Player): Cell[][] {
     let res = [...chessTable]
     try {
       let rows = txtTable.split('|')
@@ -32,7 +30,7 @@ export class XiangqiService {
             if (temp != undefined) {
               //
               let isUp = false
-              if (this.isSameSide(temp.shotName, player.chessControl.chessID)) {
+              if (this.isAlly(temp.shotName, player.chessControl.chessIDControl)) {
                 isUp = player.isBase
               }
               //
@@ -70,7 +68,7 @@ export class XiangqiService {
               if (id == '') {
                 res[i][j].chess.id = temp.shotName + i + j
               }
-              res[i][j].haveChess = true
+              res[i][j].hasChess = true
               res[i][j].chess.position = res[i][j].position
             }
           }
@@ -84,25 +82,43 @@ export class XiangqiService {
     }
     return res
   }
-  move(chess: Chess, toPosition: Position, table: ItemTable[][], tableEff: ItemTable[][]): boolean {
+  move(chess: Chess, toPosition: Position, table: Cell[][]): boolean {
     let fromP = chess.position
-    if ((!(table[toPosition.y][toPosition.x].haveChess)) && tableEff[toPosition.y][toPosition.x].chess.shotName == '.') {
-      table[fromP.y][fromP.x].haveChess = false
+    if (table[toPosition.y][toPosition.x].hasDot) {
+      if (table[toPosition.y][toPosition.x].hasDotBan) {
+        this.shareService.openSnackbar('Lỗi mất Tướng', 'OK')
+        return false
+      }
+      table[fromP.y][fromP.x].hasChess = false
       table[fromP.y][fromP.x].chess = this.newChess()
 
       chess.position = toPosition
-      table[toPosition.y][toPosition.x].haveChess = true
+      table[toPosition.y][toPosition.x].hasChess = true
       table[toPosition.y][toPosition.x].chess = chess
       return true
     } else {
+      if (toPosition != chess.position) {
+        this.shareService.openSnackbar('Nước đi không hợp lệ!', 'OK');
+      }
       return false
     }
   }
+  moveNoDot(chess: Chess, toPosition: Position, table: Cell[][]) {
+    let fromP = chess.position
+    table[fromP.y][fromP.x].hasChess = false
+    table[fromP.y][fromP.x].chess = this.newChess()
 
-  setTableEff(chess: Chess, table: ItemTable[][], tableEff: ItemTable[][]) {
+    chess.position = toPosition
+    table[toPosition.y][toPosition.x].hasChess = true
+    table[toPosition.y][toPosition.x].chess = chess
+  }
+  getDots(chess: Chess, table: Cell[][]) {
+    let dots = []
+    for (let i = 0; i < 10; i++) {
+      dots.push(Array(9).fill(false))
+    }
     let c = chess.position
     let ruleStr = ''
-
     if (chess.shotName.toLowerCase() == 'v') {
       ruleStr = '1 up/1 down/1 left/1 right'
     }
@@ -134,9 +150,7 @@ export class XiangqiService {
           ruleStr += `/1 left/1 right`
         }
       }
-
     }
-
     let temp = ruleStr.split('/')
     for (let i = 0; i < temp.length; i++) {
       let [time, grapStr] = temp[i].split(' ')
@@ -152,7 +166,7 @@ export class XiangqiService {
             break
           }
           boxTemp = { x: (move1.x + boxTemp.x), y: (move1.y + boxTemp.y) }
-          if (j == 0 && table[boxTemp.y][boxTemp.x].haveChess) {
+          if (j == 0 && table[boxTemp.y][boxTemp.x].hasChess) {
             if (chess.shotName.toLowerCase() == 'm' || chess.shotName.toLowerCase() == 't') {
               grapErr = true
               break
@@ -173,10 +187,10 @@ export class XiangqiService {
 
         if (!grapErr) {
           if (
-            !table[boxTemp.y][boxTemp.x].haveChess ||
-            (table[boxTemp.y][boxTemp.x].haveChess && !this.isSameSide(table[boxTemp.y][boxTemp.x].chess.shotName, chess.shotName))
+            !table[boxTemp.y][boxTemp.x].hasChess ||
+            (table[boxTemp.y][boxTemp.x].hasChess && !this.isAlly(table[boxTemp.y][boxTemp.x].chess.shotName, chess.shotName))
           ) {
-            tableEff[boxTemp.y][boxTemp.x].chess.shotName = '.'
+            dots[boxTemp.y][boxTemp.x] = true
           }
         }
       }
@@ -189,8 +203,8 @@ export class XiangqiService {
         while (!isStop) {
           pTemp = { x: pTemp.x + move1.x, y: pTemp.y + move1.y }
           if (this.onLimit(pTemp)) {
-            if (!table[pTemp.y][pTemp.x].haveChess && !stepOfCannon) {
-              tableEff[pTemp.y][pTemp.x].chess.shotName = '.'
+            if (!table[pTemp.y][pTemp.x].hasChess && !stepOfCannon) {
+              dots[pTemp.y][pTemp.x] = true
             }
             else {
               if (chess.shotName.toLowerCase() == 'p') {
@@ -198,15 +212,15 @@ export class XiangqiService {
                   stepOfCannon = true
                 }
                 else {
-                  if (!this.isSameSide(chess.shotName, table[pTemp.y][pTemp.x].chess.shotName)) {
-                    tableEff[pTemp.y][pTemp.x].chess.shotName = '.'
+                  if (!this.isAlly(chess.shotName, table[pTemp.y][pTemp.x].chess.shotName)) {
+                    dots[pTemp.y][pTemp.x] = true
                     isStop = true
                   }
                 }
               }
               else {
-                if (!this.isSameSide(chess.shotName, table[pTemp.y][pTemp.x].chess.shotName)) {
-                  tableEff[pTemp.y][pTemp.x].chess.shotName = '.'
+                if (!this.isAlly(chess.shotName, table[pTemp.y][pTemp.x].chess.shotName)) {
+                  dots[pTemp.y][pTemp.x] = true
                 }
                 isStop = true
               }
@@ -222,24 +236,123 @@ export class XiangqiService {
         }
       }
     }
-    return tableEff
+    return dots
   }
-  isSameSide(c1: string, c2: string) {
+  setDots(dots: boolean[][], table: Cell[][]) {
+    for (let i = 0; i < dots.length; i++) {
+      for (let j = 0; j < dots[i].length; j++) {
+        if (dots[i][j] == true) {
+          table[i][j].hasDot = true
+        }
+      }
+    }
+  }
+  isAlly(c1: string, c2: string) {
     let c3 = c1 + c2
     return c3.toUpperCase() == c3 || c3.toLocaleLowerCase() == c3
   }
   onLimit(p: Position) {
     return p.x > -1 && p.y > -1 && p.x < 9 && p.y < 10
   }
-  printChessTable(chessTable: ItemTable[][]) {
+  isCheckmat(chess: Chess, table: Cell[][]) {
+    let res = false
+    let dots = this.getDots(chess, table)
+    for (let i = 0; i < dots.length; i++) {
+      for (let j = 0; j < dots[i].length; j++) {
+        if (dots[i][j] && table[i][j].chess.shotName.toLowerCase() == 'v') {
+          res = true
+        }
+      }
+    }
+    return res
+  }
+  isCheckmatAll(chessEnemy: Chess, table: Cell[][]): boolean {
+    for (let i = 0; i < table.length; i++) {
+      for (let j = 0; j < table[i].length; j++) {
+        if (this.isAlly(chessEnemy.shotName, table[i][j].chess.shotName)) {
+          console.log(chessEnemy.shotName)
+          if (this.isCheckmat(table[i][j].chess, table)) {
+            return true
+          }
+        }
+      }
+    }
+    return false
+  }
+  getDotban(chess1: Chess, table: Cell[][], dots: boolean[][]): boolean[][] {
+    let chess = { ...chess1 }
+    let tableCopy: Cell[][] = []
+    table.forEach((e) => {
+      let arr: Cell[] = []
+      e.forEach(cell => {
+        arr.push({ ...cell })
+      })
+      tableCopy.push(arr)
+    })
+    let dotsban: boolean[][] = []
+    for (let i = 0; i < 10; i++) {
+      dotsban.push(Array(9).fill(false))
+    }
+    for (let i = 0; i < dots.length; i++) {
+      for (let j = 0; j < dots[i].length; j++) {
+        if (dots[i][j]) {
+          let cell = { ...tableCopy[i][j] }
+          this.moveNoDot(chess, { x: j, y: i }, tableCopy)
+          let breakForiijj = false
+          for (let ii = 0; ii < tableCopy.length; ii++) {
+            if (breakForiijj) break
+            for (let jj = 0; jj < tableCopy[ii].length; jj++) {
+              if (breakForiijj) break
+              if (
+                tableCopy[ii][jj].hasChess &&
+                !this.isAlly(chess.shotName, tableCopy[ii][jj].chess.shotName) &&
+                this.isCheckmat(tableCopy[ii][jj].chess, tableCopy)) {
+                dotsban[i][j] = true
+                breakForiijj = true
+              }
+            }
+          }
+          this.moveNoDot(chess, chess1.position, tableCopy)
+          tableCopy[i][j].hasChess = cell.hasChess
+          if (cell.hasChess) {
+            tableCopy[i][j].chess = cell.chess
+          }
+        }
+      }
+    }
+
+    if (chess1.shotName.toLowerCase() == 'v') {
+      if (dotsban[0][3]) dotsban[0][2] = true
+      else if (dotsban[0][5]) dotsban[0][6] = true
+      else if (dotsban[7][3]) dotsban[7][2] = true
+      else if (dotsban[7][5]) dotsban[7][6] = true
+    }
+
+    return dotsban
+  }
+  setDotsbanToTable(dotsban: boolean[][], table: Cell[][]) {
+    for (let i = 0; i < dotsban.length; i++) {
+      for (let j = 0; j < dotsban[i].length; j++) {
+        if (dotsban[i][j] == true) {
+          table[i][j].hasDotBan = true
+        }
+      }
+    }
+  }
+
+
+
+
+  printChessTable(chessTable: Cell[][]) {
     console.log('------------------------------------')
     let res = ''
     try {
       for (let i = 0; i < 10; i++) {
         res = ''
         for (let j = 0; j < 9; j++) {
-          chessTable[i][j].chess.shotName != '' ?
-            res += ' | ' + chessTable[i][j].chess.shotName
+          chessTable[i][j].hasChess ?
+            res += ' | ' + (chessTable[i][j].hasDot ? '.' : chessTable[i][j].hasDotBan ? 'x' : '')
+            // res += ' | ' + chessTable[i][j].chess.shotName
             : res += ' |  '
         }
         console.log(res + ' | ')
@@ -248,25 +361,25 @@ export class XiangqiService {
       console.log(error)
     }
   }
-  createChessTable(): Array<Array<ItemTable>> {
-    let res: Array<Array<ItemTable>> = []
+  createChessTable(): Array<Array<Cell>> {
+    let res: Array<Array<Cell>> = []
     for (let i = 0; i < 10; i++) {
       let temp = []
       for (let j = 0; j < 9; j++) {
-        let itemTable: ItemTable = {
-          id: '',
-          position: {
-            x: j,
-            y: i
-          },
-          haveChess: false,
-          chess: this.newChess()
-        }
-        temp.push(itemTable)
+
+        temp.push(this.newItemTable(i, j))
       }
       res.push(temp)
     }
     return res
+  }
+  clearTableDot(table: Cell[][]) {
+    for (let i = 0; i < table.length; i++) {
+      for (let j = 0; j < table[i].length; j++) {
+        table[i][j].hasDot = false
+        table[i][j].hasDotBan = false
+      }
+    }
   }
   createMoves() {
     // for dựa trên i j tạo ra bàn cờ
@@ -555,5 +668,19 @@ export class XiangqiService {
       },
     }
     return chess
+  }
+  newItemTable(i: number, j: number) {
+    let itemTable: Cell = {
+      id: '',
+      position: {
+        x: j,
+        y: i
+      },
+      hasDot: false,
+      hasDotBan: false,
+      hasChess: false,
+      chess: this.newChess()
+    }
+    return itemTable
   }
 }
