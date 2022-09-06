@@ -28,6 +28,9 @@ export class BoardComponent implements OnInit {
 
     this.chessService.currenChessTable = this.chessService.createChessTable()
     let strBoard = 'XMTSVSTMX|         | P     P |C C C C C|         |         |c c c c c| p     p |         |xmtsvstmx'
+
+    // let strBoard = 'p  V     |    SM   |   cT    |   c    x|        c|         |         |t        | CC  C   |   vPMC  '
+
     this.chessService.currenChessTable = this.chessService.setTable(strBoard, this.chessService.currenChessTable, this.playerService.player1)
     this.table = chessService.currenChessTable
   }
