@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GameService } from 'src/app/services/game/game.service';
 
 @Component({
   selector: 'app-box-history',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BoxHistoryComponent implements OnInit {
 
-  constructor() { }
+  constructor(public gameService: GameService) { }
 
   ngOnInit(): void {
   }
@@ -166,4 +167,21 @@ export class BoxHistoryComponent implements OnInit {
     }],
   ]
 
+  startGame() {
+    if (this.gameService.enoughPlayer()) {
+      this.gameService.startGame(this.gameService.player1, this.gameService.player2)
+    }
+  }
+
+  getValueToProcessBar(uid: string) {
+    if (!this.gameService.isGameStart) {
+      return 0
+    } else {
+      if (uid == this.gameService.currentUserIDControll) {
+        let res = this.gameService.time.getSeconds() / this.gameService.timePerMove * 100
+        return res
+      }
+      return 0
+    }
+  }
 }

@@ -128,15 +128,15 @@ h1 {
       height: 100%;
       background-color: #202020;
     }
-    
+
   }
-  
+
 
 
 
   }
  }
-  
+
 
 
 
@@ -148,7 +148,7 @@ h1 {
   border-radius: 50%;
 }
 .thongtin .dropbtn {
-  font-size: 16px;  
+  font-size: 16px;
   border: none;
   outline: none;
   color: white;
@@ -189,7 +189,7 @@ h1 {
 }
 
 .dropdown .dropbtn {
-  font-size: 16px;  
+  font-size: 16px;
   border: none;
   outline: none;
   color: white;
@@ -227,4 +227,9 @@ h1 {
 
 .dropdown:hover .dropdown-content {
   display: block;
+}
+
+
+::ng-deep.mat-dialog-container {
+  padding: 0px !important;
 }

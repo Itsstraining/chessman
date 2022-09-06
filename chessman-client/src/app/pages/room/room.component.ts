@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogCreateNewGameComponent } from 'src/app/components/dialog/dialog-create-new-game/dialog-create-new-game.component';
+import { DialogGameoverComponent } from 'src/app/components/dialog/dialog-gameover/dialog-gameover.component';
 
 @Component({
   selector: 'app-room',
@@ -262,9 +265,18 @@ export class RoomComponent implements OnInit {
       minAgo: 10
     }
   ]
-  constructor() { }
+  constructor(public dialog: MatDialog) {
+    this.openDialogCreateGame()
+  }
 
   ngOnInit(): void {
+  }
+
+  openDialogCreateGame() {
+    this.dialog.open(DialogCreateNewGameComponent);
+  }
+  open(){
+    this.dialog.open(DialogGameoverComponent);
   }
 
 }
