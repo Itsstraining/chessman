@@ -1,7 +1,9 @@
-export interface ItemTable {
+export interface Cell {
   id: string
   position: Position
-  haveChess: boolean
+  hasChess: boolean
+  hasDot: boolean
+  hasDotBan: boolean
   chess: Chess
 }
 

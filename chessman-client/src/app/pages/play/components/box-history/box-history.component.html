@@ -1,59 +1,88 @@
 <div class="grapHistoryBox">
   <div class="row">
     <div class="c1">
-      <div><img class="avatar" src="../../../../../assets/avatar/a2.png"></div>
-      <div><span style="font-size: 22px;">hungtt</span></div>
-      <div><span style="font-size: 12px;">Elo: 1200</span></div>
+      <div><img class="avatar" src="../../../../../assets/avatar/{{gameService.player1.img}}.png"></div>
+      <div><span style="font-size: 22px;">{{gameService.player1.name}}</span></div>
+      <div><span style="font-size: 12px;">Elo: {{gameService.player1.elo}}</span></div>
     </div>
-    <div class="vs"><p>VS</p></div>
+    <div class="vs">
+      <p>VS</p>
+    </div>
     <div class="c1">
-      <div><img class="avatar" src="../../../../../assets/avatar/a3.png"></div>
-      <div><span style="font-size: 22px;">hungtt</span></div>
-      <div><span style="font-size: 12px;">Elo: 1200</span></div>
+      <div><img class="avatar" src="../../../../../assets/avatar/{{gameService.player2.img}}.png"></div>
+      <div><span style="font-size: 22px;">{{gameService.player2.name}}</span></div>
+      <div><span style="font-size: 12px;">Elo: {{gameService.player2.elo}}</span></div>
     </div>
   </div>
+
+  <div class="boxTime30">
+    <section class="example-section">
+      <mat-progress-bar class="example-margin" [color]="'primary'" [mode]="'determinate'"
+        [value]="getValueToProcessBar(gameService.player1.id)">
+      </mat-progress-bar>
+    </section>
+    <section class="example-section" style="transform: rotate(180deg);">
+      <mat-progress-bar class="example-margin" [color]="'primary'" [mode]="'determinate'"
+        [value]="getValueToProcessBar(gameService.player2.id)" [bufferValue]="1">
+      </mat-progress-bar>
+    </section>
+  </div>
+
 
   <div class="content">
     <div class="row1">
       <div><i class="fi fi-sr-time-quarter-to"></i>
-        <p>9 : 22</p>
+        <p>{{gameService.player1.chessControl.timer.getFormatTime()}}</p>
       </div>
       <div><i class="fi fi-sr-time-quarter-to"></i>
-        <p>8 : 55</p>
+        <p>{{gameService.player2.chessControl.timer.getFormatTime()}}</p>
       </div>
 
     </div>
 
     <div class="graps">
-
-      <div class="row2" *ngFor="let item of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17]; let i=index"
-        [style.background-color]="i%2==0 ? 'rgb(80 80 80)' : '#373737'">
-      <div class="c1">
-        <div>
-          <p>{{i*2+1}}</p>
-        </div>
-        <div><img src="../assets/xiangqi/wp.png" alt=""></div>
-        <div>
-          <p>D5</p>
-        </div>
-        <div><i class="fi fi-rr-caret-right"></i></div>
-        <div>
-          <p>E1</p>
+      <div *ngIf="gameService.isGameStart">
+        <div class="row2" *ngFor="let item of [1,2,3,4,5,6  ]; let i=index"
+          [style.background-color]="i%2==0 ? 'rgb(80 80 80)' : '#373737'">
+          <div class="c1">
+            <div>
+              <p>{{i*2+1}}</p>
+            </div>
+            <div><img src="../assets/xiangqi/wp.png" alt=""></div>
+            <div>
+              <p>D5</p>
+            </div>
+            <div><i class="fi fi-rr-caret-right"></i></div>
+            <div>
+              <p>E1</p>
+            </div>
+          </div>
+          <div class="c1">
+            <div>
+              <p>{{i*2+2}}</p>
+            </div>
+            <div><img src="../assets/xiangqi/wp.png" alt=""></div>
+            <div>
+              <p>D5</p>
+            </div>
+            <div><i class="fi fi-rr-caret-right"></i></div>
+            <div>
+              <p>E1</p>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="c1">
-        <div>
-          <p>{{i*2+2}}</p>
-        </div>
-        <div><img src="../assets/xiangqi/wp.png" alt=""></div>
-        <div>
-          <p>D5</p>
-        </div>
-        <div><i class="fi fi-rr-caret-right"></i></div>
-        <div>
-          <p>E1</p>
+
+      <div *ngIf="!gameService.isGameStart" class="boxStart">
+        <div class="btStart" (click)="startGame()">
+          <p>BẮT ĐẦU</p>
         </div>
       </div>
     </div>
+
+
+
   </div>
+
+
 </div>

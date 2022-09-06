@@ -23,15 +23,37 @@
         height: auto;
         margin-bottom: 2em;
       }
+
       .dot {
         width: 2em;
         height: 2em;
         background: rgba(109, 145, 67);
         border-radius: 50%;
-
         position: absolute;
         top: 0;
         margin-top: 2.5em;
+        z-index: 3;
+      }
+      .dot1 {
+        width: 2em;
+        height: 2em;
+        background: rgb(173 71 71 / 86%);
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        margin-top: 2.5em;
+        z-index: 3;
+
+      }
+      .turn {
+        width: 7.8em;
+        height: 7.8em;
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin-left: -0.95em;
+        margin-top: -0.5em;
+        z-index: 1;
       }
     }
   }
@@ -39,14 +61,29 @@
 
 .draggable {
   cursor: grab;
+  z-index: 3;
+}
+.draggable:hover {
+  -webkit-filter: drop-shadow(0.5em 0.5em 0.5em rgb(179, 179, 179));
+  filter: drop-shadow(0.5em 0.5em 0.5em rgb(179, 179, 179));
 }
 
 .draggable:active {
   cursor: grabbing;
 }
 
-.chess{
+.chess {
   width: 6em;
   height: auto;
   margin-bottom: 2em;
+}
+
+.checkmatImg {
+  position: absolute;
+  svg {
+    width: 8em;
+    height: 8em;
+    margin-top: -0.56em;
+    z-index: 2;
+  }
 }
