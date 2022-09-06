@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'game', loadChildren: () => import('./pages/game/game.module').then(m => m.GameModule) },
   { path: 'lobby', loadChildren: () => import('./pages/lobby/lobby.module').then(m => m.LobbyModule) },
   { path: 'play', loadChildren: () => import('./pages/play/play.module').then(m => m.PlayModule) },
+  { path: 'cactheco', loadChildren: () => import('./pages/cactheco/cactheco.module').then(m => m.CacthecoModule) },
 ];
 
 @NgModule({
