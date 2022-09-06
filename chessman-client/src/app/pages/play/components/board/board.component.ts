@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Chess, ItemTable, Position } from 'src/app/models/chess.model';
+import { Chess, Cell, Position } from 'src/app/models/chess.model';
 import { Player } from 'src/app/models/player.model';
-import { PlayerService } from 'src/app/services/player/player.service';
+import { GameService } from 'src/app/services/game/game.service';
 import { ShareService } from 'src/app/services/share.service';
 import { XiangqiService } from 'src/app/services/xiangqi/xiangqi.service';
 
@@ -11,36 +11,47 @@ import { XiangqiService } from 'src/app/services/xiangqi/xiangqi.service';
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
-  table: ItemTable[][]
-  tableEff: ItemTable[][]
+  table: Cell[][]
   chess: Chess
+  currentPlayer: Player
+  fPosition: Position = { x: -1, y: -1 }
+  tPosition: Position = { x: -1, y: -1 }
 
-  player1: Player
-  player2: Player
-  constructor(public xiangqiService: XiangqiService, private playerService: PlayerService) {
-    this.tableEff = xiangqiService.createChessTable()
-    this.chess = xiangqiService.newChess()
-    this.player1 = this.playerService.newPlayer('user1','VHTMXC', true)
-    this.player2 = this.playerService.newPlayer('user2','vhtmxc', false)
+  constructor(
+    public chessService: XiangqiService,
+    private playerService: GameService,
+    private shareService: ShareService,
+    public gameService: GameService
+  ) {
+    this.currentPlayer = this.playerService.getUserById(this.gameService.currentUserIDControll)
+    this.chess = chessService.newChess()
 
-    this.xiangqiService.currenChessTable = this.xiangqiService.createChessTable()
-    // let strBoard = 'xmtsvstmx|         | p     p |c c c c c|         |         |C C C C C| P     P |         |XMTSVSTMX'
-    let strBoard = 'xmtsvstmx|         | p     p |c c c c c|         |         |C C C C C| P     P |         |XMTSVSTMX'
-    this.xiangqiService.currenChessTable = this.xiangqiService.setTable(strBoard, this.xiangqiService.currenChessTable, this.player1)
-    this.table = xiangqiService.currenChessTable
+    this.chessService.currenChessTable = this.chessService.createChessTable()
+    let strBoard = 'XMTSVSTMX|         | P     P |C C C C C|         |         |c c c c c| p     p |         |xmtsvstmx'
+    this.chessService.currenChessTable = this.chessService.setTable(strBoard, this.chessService.currenChessTable, this.playerService.player1)
+    this.table = chessService.currenChessTable
   }
 
   ngOnInit(): void {
   }
 
-  //for chessItem
+  //cầm con cờ
   mousedownImg(e: any, chess: Chess) {
     this.clearTableEff()
     if (e.which != 1) {
       return
     }
-    this.chess = chess
-    this.tableEff = this.xiangqiService.setTableEff(chess, this.table, this.tableEff)
+    if (!this.gameService.isGameStart) {
+      this.shareService.openSnackbar('Trận đấu chưa bắt đầu..', 'OK')
+      return
+    }
+    this.currentPlayer = this.playerService.getUserById(this.gameService.currentUserIDControll)
+    if (this.gameService.canPickChess(this.currentPlayer.chessControl.chessIDControl, chess.shotName)) {
+      this.chess = chess
+      let dots = this.chessService.getDots(chess, this.table)
+      this.chessService.setDots(dots, this.table)
+      this.chessService.setDotsbanToTable(this.chessService.getDotban(chess, this.table, dots), this.table)
+    }
   }
   dragend(e: any, p: Position) {
     if (e.which != 1) {
@@ -48,7 +59,7 @@ export class BoardComponent implements OnInit {
     }
   }
 
-  //for boxTable
+  //thả con cờ
   drag(ev: any) {
     ev.dataTransfer.setData("text", ev.target.id);
   }
@@ -57,21 +68,24 @@ export class BoardComponent implements OnInit {
   }
   drop(ev: any, p: Position) {
     ev.preventDefault();
-    let isMove = this.xiangqiService.move(this.chess, p, this.table, this.tableEff)
+    let fP = this.chess.position
+    let isMove = this.chessService.move(this.chess, p, this.table)
     if (isMove) {
-      var data = ev.dataTransfer.getData("text");
-      ev.target.appendChild(document.getElementById(data));
-    }
-    else {
-      if (this.chess.position != p)
-        // this.snackService.openSnackbar('Nước đi không hợp lệ', 'OK')
-        console.log('ko hop le')
+      this.gameService.getCurrentUser().chessControl.isCheckmat = false
+      this.gameService.changeCurrentPlayer(this.playerService.player1, this.playerService.player2)
+      this.fPosition = fP
+      this.tPosition = p
+      let isCheckmat = this.chessService.isCheckmatAll(this.chess, this.table)
+      if (isCheckmat) {
+        this.gameService.getCurrentUser().chessControl.isCheckmat = true
+      }
+      this.chessService.setDrawOrWin(this.table, this.gameService.getCurrentUser())
     }
     this.clearTableEff()
   }
 
   clearTableEff() {
-    this.tableEff = this.xiangqiService.createChessTable()
+    this.chessService.clearTableDot(this.table)
   }
 }
 
