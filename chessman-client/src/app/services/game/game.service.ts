@@ -7,7 +7,7 @@ import { XiangqiService } from '../xiangqi/xiangqi.service';
   providedIn: 'root'
 })
 export class GameService {
-  mode = 0 //0 off, 1 with AI, 2 online
+  mode = 0 //0: 2 off, 1: with AI
 
   isGameStart = false
   currentUserIDControll = ''

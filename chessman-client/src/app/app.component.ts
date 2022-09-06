@@ -51,7 +51,10 @@ export class AppComponent {
       title: 'Lobby',
       href: 'loddy'
     },
-
+    {
+      title: 'các thế cờ',
+      href: 'cactheco'
+    },
   ]
 
 
