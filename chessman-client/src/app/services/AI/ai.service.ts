@@ -11,13 +11,13 @@ export class AIService {
 
   }
 
-  setMove() {
-    this.http.post<string[]>(environment.endpoint + 'setMove', {
-      "moveStr": "g0e2",
+  setMove(moveStr: string) {
+    return this.http.post<string[]>(environment.endpoint + 'setMove', {
+      "moveStr": moveStr,
       "id": "123"
-    }).subscribe(e => {
-
     })
   }
-
+  getRandomInt(min: number, max: number) {
+    return Math.floor(Math.random() * (max++ - min) + min);
+  }
 }

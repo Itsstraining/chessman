@@ -1,7 +1,5 @@
 <div style="display: flex;">
-  <!-- <div class="indexs">
-    <div *ngFor="let item of [10,9,8,7,6,5,4,3,2,1]" class="index">{{item}}</div>
-  </div> -->
+
   <div class="board selectDisable">
     <div *ngFor="let i of [0,1,2,3,4,5,6,7,8,9]" class="row">
       <div (drop)="drop($event,table[i][j].position)" (dragover)="allowDrop($event)" class="cel"
@@ -32,5 +30,9 @@
     </div>
   </div>
 </div>
-<!-- <div style="display: flex;margin: -3em 0 0 5.8em;"><div class="txtindex" *ngFor="let item of ['a','b','c','d','e','f','g','h','i',]">{{item}}</div></div> -->
-
+<div style="display: flex; margin: -2em 0 0 4.3em;">
+  <div class="txtindex" *ngFor="let item of ['a','b','c','d','e','f','g','h']">
+    {{item}}
+  </div>
+  <div style="font-size: 2em;">i</div>
+</div>

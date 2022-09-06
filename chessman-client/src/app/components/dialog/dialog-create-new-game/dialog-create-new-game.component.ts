@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { GameNew } from 'src/app/models/gameNew.model';
 
 @Component({
   selector: 'app-dialog-create-new-game',
@@ -7,39 +9,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DialogCreateNewGameComponent implements OnInit {
 
-  newGame: any
+  game: GameNew = {
+    isWithBot: true,
+    tGian1Nuoc: 30,
+    tGian1User: 15
+  }
+
   minStepTime = 20
-  currentStepTime = 30
   maxStepTime = 60
   minGameTime = 10
-  currentGameTime = 15
   maxGameTime = 30
 
-  constructor() {
-    this.newGame = {
-      laPhongCongDong: true,
-      coTinhDiem: false,
-      tGian1Nuoc: 30,
-      tGian1User: 15
-    }
+  constructor(private dialogRef: MatDialogRef<DialogCreateNewGameComponent>) {
   }
 
   ngOnInit(): void {
   }
 
-  changeStyleGame(){
-    this.newGame.laPhongCongDong = !this.newGame.laPhongCongDong
+  changeStyleGame() {
+    this.game.isWithBot = !this.game.isWithBot
   }
 
-  changeSco(){
-    this.newGame.coTinhDiem = !this.newGame.coTinhDiem
-  }
-
-  a(num:number){
-    console.log(num)
-  }
+  // changeSco() {
+  //   this.newGame.coTinhDiem = !this.newGame.coTinhDiem
+  // }
 
   formatLabel(value: number) {
     return Math.round(value);
+  }
+
+  closeAndSendData() {
+    this.dialogRef.close(this.game)
   }
 }

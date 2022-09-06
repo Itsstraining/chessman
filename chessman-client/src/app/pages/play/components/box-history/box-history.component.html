@@ -42,35 +42,41 @@
 
     <div class="graps">
       <div *ngIf="gameService.isGameStart">
-        <div class="row2" *ngFor="let item of [1,2,3,4,5,6  ]; let i=index"
-          [style.background-color]="i%2==0 ? 'rgb(80 80 80)' : '#373737'">
-          <div class="c1">
-            <div>
-              <p>{{i*2+1}}</p>
+        <div *ngFor="let item of hs.grapsHalf; let i = index">
+          <div class="row2" [style.background-color]="i%2==0 ? 'rgb(80 80 80)' : '#373737'">
+
+            <div class="c1">
+              <div>
+                <p>{{i*2}}</p>
+              </div>
+              <div><img src="../assets/xiangqi/{{hs.graps[i*2].nameChess}}" alt=""></div>
+              <div>
+                <p>{{ hs.graps[i*2].grapFrom }}</p>
+              </div>
+              <div><i class="fi fi-rr-caret-right"></i></div>
+              <div>
+                <p>{{ hs.graps[i*2].grapTo }}</p>
+              </div>
             </div>
-            <div><img src="../assets/xiangqi/wp.png" alt=""></div>
-            <div>
-              <p>D5</p>
+
+            <div class="c1" *ngIf="hs.graps[i*2+1] != undefined">
+              <!-- <div class="c1" *ngIf="hs.graps[i*2+1] != undefined"> -->
+              <div>
+                <p>{{i*2+1}}</p>
+              </div>
+              <div><img src="../assets/xiangqi/{{hs.graps[i*2+1].nameChess}}" alt=""></div>
+              <div>
+                <p>{{ hs.graps[i*2+1].grapFrom }}</p>
+              </div>
+              <div><i class="fi fi-rr-caret-right"></i></div>
+              <div>
+                <p>{{ hs.graps[i*2+1].grapTo }}</p>
+              </div>
             </div>
-            <div><i class="fi fi-rr-caret-right"></i></div>
-            <div>
-              <p>E1</p>
-            </div>
-          </div>
-          <div class="c1">
-            <div>
-              <p>{{i*2+2}}</p>
-            </div>
-            <div><img src="../assets/xiangqi/wp.png" alt=""></div>
-            <div>
-              <p>D5</p>
-            </div>
-            <div><i class="fi fi-rr-caret-right"></i></div>
-            <div>
-              <p>E1</p>
-            </div>
+
           </div>
         </div>
+
       </div>
 
       <div *ngIf="!gameService.isGameStart" class="boxStart">
