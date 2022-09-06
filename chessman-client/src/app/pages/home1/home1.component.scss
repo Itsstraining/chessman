@@ -1,6 +1,6 @@
 .background{
     font-size: calc(100vw * (14 / 2560));
-    height: 50%;
+    
     background-color: #312E2B;
 }
 .taotrandau{
@@ -14,7 +14,7 @@ img{
 
 .play-quick-links{
     
-    padding-left: 26em;
+    padding-left: 20em;
     align-items: center;
     width: 18%;
     display: flex;
@@ -28,7 +28,7 @@ img{
 }
 .tournaments-title{
     font-size: 1.4em;
-    color: hsla(0,0%,100%,.4);
+    float: right;
 }
 i:hover{
     background-color: hsla(0,0%,100%,.05);
@@ -52,7 +52,7 @@ i:hover{
 .form-elo{
     background-color: #272522;
     margin-left:7em;
-    margin-bottom: 25%;
+    margin-bottom: 10%;
     width: 20%;
     height: 60%;
     border-radius: 0.3em;
@@ -112,8 +112,17 @@ i:hover{
     color: white;
     display: flex;
     align-items: center;
+    gap: 1rem;
     justify-content: space-between;
-  
+}
+.guest{
+    gap: 1rem;
+}
+.nguoithamgia{
+    float: right;
+}
+.giaidau:hover{
+    background-color: hsla(0,0%,100%,.05);
 }
 .h2{
     background-color: #312E2B;
@@ -134,16 +143,16 @@ i:hover{
     background-color: #272522;
     border-radius: 2%;
     color: white;  
-    margin-left: 25em;
+    margin-left: 20em;
 }
 .watch-more-new{
     text-decoration:none;
-    margin-left:42em; 
+    margin-left:35em; 
     font-size: 2em;
     color: white;  
 }
 .formcothe{
-    margin-right: 20em;
+    margin-right: 19em;
     background-color: #272522;
     width: 33%;
     border-radius: 1%;
@@ -151,7 +160,7 @@ i:hover{
 }
 .xem-them-co-the{
     text-decoration:none;
-    margin-left:10em;
+    margin-left:7em;
     font-size: 2em;
     color: white; 
     
@@ -163,7 +172,7 @@ img{
     padding-bottom: 0.5em;
     width: 100%;
     padding-top: 3em;
-    padding-left: 25.5em;
+    padding-left: 20em;
     
     align-items: center;
     justify-content: space-between;
@@ -177,12 +186,15 @@ img{
     font-size: 2em;
     
 }
+
 .fi-sr-users{
     color: hsla(0,0%,100%,.4);
     text-decoration:none;
+    
 }
 .fi-sr-users:hover{
     color: white;
+    
     
 }
 .fi-sr-envelope{
@@ -208,7 +220,7 @@ img{
     color: white;
 }
 .toolbar-menu{
-    margin-left: 27em;
+    margin-left: 20em;
     display: flex;
     
 }

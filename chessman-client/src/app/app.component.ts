@@ -12,6 +12,10 @@ export class AppComponent {
   title = 'Chessman';
   menuLeft = [
     {
+      title: 'Trang chủ',
+      href: 'home1'
+    },
+    {
       title: 'Play',
       href: 'play'
     },
@@ -47,11 +51,7 @@ export class AppComponent {
       title: 'Game',
       href: 'game'
     },
-    {
-      title: 'Lobby',
-      href: 'loddy'
-    },
-
+    
   ]
 
 
