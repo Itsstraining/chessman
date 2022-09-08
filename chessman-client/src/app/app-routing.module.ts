@@ -6,7 +6,7 @@ const routes: Routes = [
   { path: 'menu', loadChildren: () => import('./pages/menu/menu.module').then(m => m.MenuModule) },
   { path: 'xem', loadChildren: () => import('./pages/xem/xem.module').then(m => m.XemModule) },
   { path: 'home', loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) },
-  { path: 'home1', loadChildren: () => import('./pages/home1/home1.module').then(m => m.Home1Module) },
+  { path: '', loadChildren: () => import('./pages/home1/home1.module').then(m => m.Home1Module) },
   { path: 'dangky', loadChildren: () => import('./pages/dangky/dangky.module').then(m => m.DangkyModule) },
   { path: 'info', loadChildren: () => import('./pages/info/info.module').then(m => m.InfoModule) },
   { path: 'game', loadChildren: () => import('./pages/game/game.module').then(m => m.GameModule) },
