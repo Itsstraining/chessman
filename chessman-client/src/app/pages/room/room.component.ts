@@ -274,13 +274,11 @@ export class RoomComponent implements OnInit {
   }
 
   openDialogCreateGame() {
-<<<<<<< HEAD
-    this.dialog.open(DialogwingameComponent);
-    // this.dialog.open(DialogCreateNewGameComponent);
+    // this.dialog.open(DialogwingameComponent);
+    this.dialog.open(DialogCreateNewGameComponent);
 
-=======
+
     // this.dialog.open(DialogCreateNewGameComponent);
->>>>>>> f187247dc780941796620a85a7805fbddc8e6178
   }
   open(){
     this.dialog.open(DialogGameoverComponent);
