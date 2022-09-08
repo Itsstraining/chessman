@@ -276,13 +276,9 @@ export class RoomComponent implements OnInit {
   openDialogCreateGame() {
     // this.dialog.open(DialogwingameComponent);
     this.dialog.open(DialogCreateNewGameComponent);
-
-
-    // this.dialog.open(DialogCreateNewGameComponent);
   }
   open(){
     this.dialog.open(DialogGameoverComponent);
-    
   }
 
 }
