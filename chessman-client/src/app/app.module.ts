@@ -16,6 +16,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { DialogNewGameModule } from './components/dialog/dialog-create-new-game/dialog-create-new-game.module';
+import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+
 
 
 @NgModule({
@@ -39,7 +42,8 @@ import { DialogNewGameModule } from './components/dialog/dialog-create-new-game/
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
-    DialogNewGameModule
+    DialogNewGameModule,
+    SocketIoModule.forRoot(config)
   ],
   providers: [],
   bootstrap: [AppComponent]

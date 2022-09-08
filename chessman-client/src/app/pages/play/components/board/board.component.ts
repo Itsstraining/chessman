@@ -97,13 +97,27 @@ export class BoardComponent implements OnInit {
   }
 
   BOTMove() {
-    this.AIService.setMove(this.grap.grapFrom + this.grap.grapTo).subscribe((e) => {
-      if (e != undefined) {
-        let str = e[this.AIService.getRandomInt(0,e.length)]
-        console.log(str)
-        let res = this.historyService.grapStrToPosition(str)
-        console.log(res)
-        this.chessService.moveNoDot(this.table[res.fromP.y][res.fromP.x].chess,res.toPosition,this.table)
+    this.AIService.setMoveOn(this.grap.grapFrom + this.grap.grapTo).subscribe(async (dataRes: { moveTo: string }) => {
+      if (dataRes != undefined) {
+        let res = this.historyService.grapStrToPosition(dataRes.moveTo)
+        await this.delay(2);
+        this.chessService.moveNoDot(this.table[res.fromP.y][res.fromP.x].chess, res.toPosition, this.table)
+
+        this.chess = this.table[res.toPosition.y][res.toPosition.x].chess
+
+        this.fPosition = res.fromP
+        this.tPosition = res.toPosition
+        this.grap = this.historyService.newGrap();
+        this.addGrap(this.fPosition, this.tPosition)
+
+        this.gameService.getCurrentUser().chessControl.isCheckmat = false
+        this.gameService.changeCurrentPlayer(this.playerService.player1, this.playerService.player2)
+
+        let isCheckmat = this.chessService.isCheckmatAll(this.chess, this.table)
+        if (isCheckmat) {
+          this.gameService.getCurrentUser().chessControl.isCheckmat = true
+        }
+        this.chessService.setDrawOrWin(this.table, this.gameService.getCurrentUser())
       }
     })
   }
@@ -159,6 +173,10 @@ export class BoardComponent implements OnInit {
         // });
       }
     })
+  }
+
+  delay(second: number) {
+    return new Promise(resolve => setTimeout(resolve, second * 1000));
   }
 }
 

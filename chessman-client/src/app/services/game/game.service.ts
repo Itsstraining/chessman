@@ -1,4 +1,4 @@
-  import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Player } from 'src/app/models/player.model';
 import { Timer } from 'src/app/models/timer';
 import { XiangqiService } from '../xiangqi/xiangqi.service';
@@ -119,4 +119,5 @@ export class GameService {
     }
     return this.newPlayer('', '', 1200, 'a2', '', false, false)
   }
+
 }

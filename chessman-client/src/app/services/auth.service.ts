@@ -9,7 +9,8 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
   providedIn: 'root'
 })
 export class AuthService {
-  user!:User
+  user1 = { id: '', userName: '' }
+  user!: User
   hasUser = false
   constructor(private auth: Auth) {
     onAuthStateChanged(auth, (user) => {
@@ -23,8 +24,16 @@ export class AuthService {
         console.log(this.user)
       }
     });
+    let user = { id: '', userName: '' }
+    if (this.auth.currentUser != null) {
+      user.id = this.auth.currentUser.uid ?? this.randomID()
+      user.userName = this.auth.currentUser.displayName ?? ''
+    } else {
+      user.id = this.randomID()
+      user.userName = ''
+    }
   }
-  
+
   login() {
     return from(new Promise<string>(async (resolve, reject) => {
       try {
@@ -42,5 +51,13 @@ export class AuthService {
   async logout() {
     await this.auth.signOut()
     localStorage.setItem('uid', '');
+  }
+
+  randomID() {
+    let id = Date.now().toString()
+    return id + '-' + this.getRandomInt(0, 99).toString();
+  }
+  getRandomInt(min: number, max: number) {
+    return Math.floor(Math.random() * (max++ - min) + min);
   }
 }
