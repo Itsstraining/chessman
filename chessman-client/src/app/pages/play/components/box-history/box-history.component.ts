@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DialogCreateNewGameComponent } from 'src/app/components/dialog/dialog-create-new-game/dialog-create-new-game.component';
+import { GameNew } from 'src/app/models/gameNew.model';
 import { GameService } from 'src/app/services/game/game.service';
+import { HistoryService } from 'src/app/services/history/history.service';
 
 @Component({
   selector: 'app-box-history',
@@ -7,170 +11,31 @@ import { GameService } from 'src/app/services/game/game.service';
   styleUrls: ['./box-history.component.scss']
 })
 export class BoxHistoryComponent implements OnInit {
-
-  constructor(public gameService: GameService) { }
+  constructor(
+    public gameService: GameService,
+    private dialog: MatDialog,
+    public hs:HistoryService
+  ) { }
 
   ngOnInit(): void {
   }
 
-  graps = [
-    [{
-      id: '1',
-      numGrap: '1',
-      grapFrom: 'G2',
-      grapTo: 'E7',
-      nameChess: 'm',
-      selected: false,
-      icon: '',
-    },
-    {
-      id: '1',
-      numGrap: '2',
-      grapFrom: 'F6',
-      grapTo: 'A1',
-      nameChess: 'h',
-      selected: false,
-      icon: '',
-    },],
-    [{
-      id: '1',
-      numGrap: '3',
-      grapFrom: 'A6',
-      grapTo: 'G1',
-      nameChess: 't',
-      selected: false,
-      icon: '',
-    },
-    {
-      id: '1',
-      numGrap: '4',
-      grapFrom: 'F7',
-      grapTo: 'C1',
-      nameChess: 'm',
-      selected: false,
-      icon: '',
-    },],
-    [{
-      id: '1',
-      numGrap: '5',
-      grapFrom: 'C7',
-      grapTo: 'E5',
-      nameChess: 'h',
-      selected: false,
-      icon: '',
-    },
-    {
-      id: '1',
-      numGrap: '6',
-      grapFrom: 'A8',
-      grapTo: 'B6',
-      nameChess: 'm',
-      selected: false,
-      icon: '',
-    },],
-    [{
-      id: '1',
-      numGrap: '7',
-      grapFrom: 'C7',
-      grapTo: 'E5',
-      nameChess: 'h',
-      selected: false,
-      icon: '',
-    }, {
-      id: '1',
-      numGrap: '8',
-      grapFrom: 'C7',
-      grapTo: 'E5',
-      nameChess: 'm',
-      selected: false,
-      icon: '',
-    }],
-    [{
-      id: '1',
-      numGrap: '1',
-      grapFrom: 'G2',
-      grapTo: 'E7',
-      nameChess: 'c',
-      selected: false,
-      icon: '',
-    },
-    {
-      id: '1',
-      numGrap: '2',
-      grapFrom: 'F6',
-      grapTo: 'A1',
-      nameChess: 'v',
-      selected: false,
-      icon: '',
-    },],
-    [{
-      id: '1',
-      numGrap: '3',
-      grapFrom: 'A6',
-      grapTo: 'G1',
-      nameChess: 'm',
-      selected: false,
-      icon: '',
-    },
-    {
-      id: '1',
-      numGrap: '4',
-      grapFrom: 'F7',
-      grapTo: 'C2',
-      nameChess: 'c',
-      selected: false,
-      icon: '',
-    },],
-    [{
-      id: '1',
-      numGrap: '5',
-      grapFrom: 'C7',
-      grapTo: 'E5',
-      nameChess: 'x',
-      selected: false,
-      icon: '',
-    },
-    {
-      id: '1',
-      numGrap: '6',
-      grapFrom: 'A8',
-      grapTo: 'B6',
-      nameChess: 'm',
-      selected: false,
-      icon: '',
-    },],
-    [{
-      id: '1',
-      numGrap: '7',
-      grapFrom: 'C7',
-      grapTo: 'E5',
-      nameChess: 'c',
-      selected: false,
-      icon: '',
-    }, {
-      id: '1',
-      numGrap: '8',
-      grapFrom: 'C7',
-      grapTo: 'E5',
-      nameChess: 'm',
-      selected: false,
-      icon: '',
-    }],
-    [{
-      id: '1',
-      numGrap: '7',
-      grapFrom: 'C7',
-      grapTo: 'E5',
-      nameChess: 'x',
-      selected: true,
-      icon: '',
-    }],
-  ]
-
   startGame() {
-    if (this.gameService.enoughPlayer()) {
-      this.gameService.startGame(this.gameService.player1, this.gameService.player2)
-    }
+    let dialogRef = this.dialog.open(DialogCreateNewGameComponent);
+    dialogRef.afterClosed().subscribe((e: GameNew) => {
+      if (e != undefined) {
+        if (e.isWithBot) {
+          this.gameService.player1 = this.gameService.newPlayer('baszsdasjhdas', 'Player1', 1222, 'a3', 'xmtsvspc', true, false)
+          this.gameService.player2 = this.gameService.newPlayer('lkajshkldjask', 'Player2', 1230, 'a2', 'XMTSVSPC', false, true)
+          this.gameService.startGame(this.gameService.player1, this.gameService.player2, e.tGian1Nuoc, e.tGian1User, 0) // 0: 2 off
+        } else if (!e.isWithBot) {
+          this.gameService.player1 = this.gameService.newPlayer('baszsdasjhdas', 'Player1', 1222, 'a3', 'xmtsvspc', true, false)
+          this.gameService.player2 = this.gameService.newPlayer('lkajshkldjask', 'Player2', 1230, 'a2', 'XMTSVSPC', false, false)
+          this.gameService.startGame(this.gameService.player1, this.gameService.player2, e.tGian1Nuoc, e.tGian1User, 0) // 0: 2 off
+        }
+      }
+    })
+
   }
 
   getValueToProcessBar(uid: string) {

@@ -51,7 +51,15 @@ export class AppComponent {
       title: 'Game',
       href: 'game'
     },
-    
+
+    {
+      title: 'Lobby',
+      href: 'loddy'
+    },
+    {
+      title: 'các thế cờ',
+      href: 'cactheco'
+    },
   ]
 
 

@@ -14,6 +14,8 @@ import { authReducer } from 'src/reducers/auth.reducer';
 import { AuthEffects } from 'src/effects/auth.effect';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
+import { HttpClientModule } from '@angular/common/http';
+import { DialogNewGameModule } from './components/dialog/dialog-create-new-game/dialog-create-new-game.module';
 
 
 @NgModule({
@@ -36,6 +38,8 @@ import { MaterialModule } from './material.module';
     ]),
     BrowserAnimationsModule,
     MaterialModule,
+    HttpClientModule,
+    DialogNewGameModule
   ],
   providers: [],
   bootstrap: [AppComponent]

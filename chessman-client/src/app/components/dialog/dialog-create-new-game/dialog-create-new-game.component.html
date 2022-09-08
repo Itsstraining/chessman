@@ -7,16 +7,16 @@
   </div>
   <div class="row btOption">
     <div class="bt click" (click)="changeStyleGame()"
-      [style.background-color]="newGame.laPhongCongDong ? '#3b3b3b' : '#3b3b3b00'">
-      <p>Cộng đồng</p>
+      [style.background-color]="game.isWithBot ? '#3b3b3b' : '#3b3b3b00'">
+      <p>Với máy</p>
     </div>
     <div class="bt1 click" (click)="changeStyleGame()"
-      [style.background-color]="newGame.laPhongCongDong ? '#3b3b3b00' : '#3b3b3b'">
-      <p>Riêng tư</p>
+      [style.background-color]="game.isWithBot ? '#3b3b3b00' : '#3b3b3b'">
+      <p>Offline 2 người</p>
     </div>
   </div>
 
-  <div class="row btOption">
+  <!-- <div class="row btOption" diable>
     <div class="bt click" (click)="changeSco()" [style.background-color]="newGame.coTinhDiem ? '#3b3b3b' : '#3b3b3b00'">
       <p>Không tính điểm</p>
     </div>
@@ -24,37 +24,35 @@
       [style.background-color]="newGame.coTinhDiem ? '#3b3b3b00' : '#3b3b3b'">
       <p>Tính điểm</p>
     </div>
-  </div>
+  </div> -->
 
   <div class="row nomal" style="padding-top: 1em;">
     <div>
-      <p>Thời gian 1 nước đi: {{currentStepTime}}(giây)</p>
+      <p>Thời gian 1 nước đi: {{game.tGian1Nuoc}}(giây)</p>
     </div>
   </div>
 
   <div class="row setting-time-box">
-    <mat-slider
-      thumbLabel [displayWith]="formatLabel" [(ngModel)]="currentStepTime"
-      step="5" min={{minStepTime}} max={{maxStepTime}} aria-label="units">
+    <mat-slider thumbLabel [displayWith]="formatLabel" [(ngModel)]="game.tGian1Nuoc" step="5" min={{minStepTime}}
+      max={{maxStepTime}} aria-label="units">
     </mat-slider>
   </div>
 
   <div class="row nomal" style="padding-top: 1em;">
     <div>
-      <p>Thời gian 1 mỗi người chơi: {{currentGameTime}}(phút) </p>
+      <p>Thời gian 1 mỗi người chơi: {{game.tGian1User}}(phút) </p>
     </div>
   </div>
 
   <div class="row setting-time-box">
-    <mat-slider
-      thumbLabel [displayWith]="formatLabel" [(ngModel)]="currentGameTime"
-      step="1" min={{minGameTime}} max={{maxGameTime}} aria-label="units">
+    <mat-slider thumbLabel [displayWith]="formatLabel" [(ngModel)]="game.tGian1User" step="1" min={{minGameTime}}
+      max={{maxGameTime}} aria-label="units">
     </mat-slider>
   </div>
 
   <div class="row" style="justify-content: center;">
-    <div class="btCreate click">
-      <p>Tạo Ván Cờ Mới</p>
+    <div (click)="closeAndSendData()" class="btCreate click">
+      <p>Tạo Ván Cờ</p>
     </div>
   </div>
 </div>
