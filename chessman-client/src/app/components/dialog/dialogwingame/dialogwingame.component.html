@@ -1,15 +1,24 @@
-<div class="body">
-    <div class="cross">
-        <i (click)="close()" mat-dialog-close class="fi fi-sr-cross-circle click" style="font-size: 2em;"></i>
+<div class="a">
+  <div class="row">
+    <div class="c1">
+      <div><img class="avatar" src="../../../../../assets/avatar/{{gameService.player1.img}}.png"></div>
+      <div><span style="font-size: 22px;">{{gameService.player1.name}}</span></div>
+      <div><span style="font-size: 12px;">Elo: {{gameService.player1.elo}}</span></div>
+      <div *ngIf="gameService.player1.id == user.id" style="    font-size: 1.5em;
+      font-weight: 700;
+      padding: 0.3em; color: #cb6565;">THẮNG CUỘC</div>
     </div>
-    <div class="Tua">
-    <H1> <b>Game Over </b></H1>
+    <div class="vs">
+      <p>VS</p>
     </div>
-    <div class="img" >
-    <img src="../../../../assets/avatar/cup.png" alt="">
+    <div class="c1">
+      <div><img class="avatar" src="../../../../../assets/avatar/{{gameService.player2.img}}.png"></div>
+      <div><span style="font-size: 22px;">{{gameService.player2.name}}</span></div>
+      <div><span style="font-size: 12px;">Elo: {{gameService.player2.elo}}</span></div>
+      <div *ngIf="gameService.player2.id == user.id" style="    font-size: 1.5em;
+      font-weight: 700;
+      padding: 0.3em; color: #cb6565;">THẮNG CUỘC</div>
     </div>
-<div class="youwin">
-    <h2>CHÚC MỪNG {{authSevice.user.displayName}}</h2>
-</div>
+  </div>
 
 </div>

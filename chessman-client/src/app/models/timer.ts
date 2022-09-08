@@ -10,6 +10,7 @@ export class Timer {
 
   constructor() {
     this.isTimeOut = new ReplaySubject(3);
+    this.currentTime = 0
   }
   startCountDown() {
     this.isStart = true

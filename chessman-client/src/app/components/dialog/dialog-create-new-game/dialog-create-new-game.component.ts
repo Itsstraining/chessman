@@ -39,6 +39,6 @@ export class DialogCreateNewGameComponent implements OnInit {
   }
 
   closeAndSendData() {
-    this.dialogRef.close(this.game)
+    this.dialogRef.close({ newGame: true, gameMode: this.game })
   }
 }

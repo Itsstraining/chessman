@@ -7,12 +7,14 @@ import { BoardComponent } from './components/board/board.component';
 import { BoxHistoryComponent } from './components/box-history/box-history.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MaterialModule } from 'src/app/material.module';
+import { DialogwingameComponent } from 'src/app/components/dialog/dialogwingame/dialogwingame.component';
 
 @NgModule({
   declarations: [
     PlayComponent,
     BoardComponent,
     BoxHistoryComponent,
+    DialogwingameComponent
   ],
   imports: [
     CommonModule,

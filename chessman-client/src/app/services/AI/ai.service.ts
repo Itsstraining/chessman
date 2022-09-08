@@ -35,11 +35,18 @@ export class AIService {
       this.ffishID = data.ffishid
     })
   }
-  setMoveOn(moveStr:string) {
+  setMoveOnBOT(moveStr:string) {
     let data = { ffishID: this.ffishID, move: moveStr }
-    this.socket.emit('setMoveOn', data)
-    return this.socket.fromEvent<any>('onSetMoveOn')
+    this.socket.emit('setMoveOnBOT', data)
+    return this.socket.fromEvent<any>('onSetMoveOnBOT')
   }
+  killFfish(){
+    this.socket.emit('killFfish', this.ffishID)
+  }
+
+
+
+
   setMove(moveStr: string) {
     return this.http.post<string[]>(environment.endpoint + 'setMove', {
       "moveStr": moveStr,

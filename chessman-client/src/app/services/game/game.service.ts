@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Cell, Position } from 'src/app/models/chess.model';
+import { Grap } from 'src/app/models/grap.model';
 import { Player } from 'src/app/models/player.model';
 import { Timer } from 'src/app/models/timer';
 import { XiangqiService } from '../xiangqi/xiangqi.service';
@@ -18,9 +20,14 @@ export class GameService {
   player1: Player
   player2: Player
 
+  fPosition: Position
+  tPosition: Position
+
   constructor(private xiangqiS: XiangqiService) {
     this.player1 = this.newPlayer('baszsdasjhdas', 'Player1', 1222, 'a3', 'xmtsvspc', true, false)
     this.player2 = this.newPlayer('lkajshkldjask', 'Player2', 1230, 'a2', 'XMTSVSPC', false, false)
+    this.fPosition = { x: -1, y: -1 }
+    this.tPosition = { x: -1, y: -1 }
   }
   startGame(player1: Player, player2: Player, timePerMove: number, timePerUser: number, mode: number) {
     this.timePerMove = timePerMove
@@ -34,6 +41,16 @@ export class GameService {
 
     this.time.startCountDown()
     player1.chessControl.timer.startCountDown()
+  }
+  endGame(player1: Player, player2: Player) {
+    this.isGameStart = false
+    player1.chessControl.timer.clean()
+    player1.chessControl.timer = new Timer()
+    player2.chessControl.timer.clean()
+    player2.chessControl.timer = new Timer()
+    this.currentUserIDControll = ''
+    this.time.clean()
+    this.time = new Timer()
   }
 
   canPickChess(userChessControll: string, chessName: string) {

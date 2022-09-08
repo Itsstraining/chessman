@@ -61,6 +61,7 @@ p {
       height: 55em;
       overflow-y: scroll;
       background: #373737;
+      position: relative;
       .row2 {
         display: flex;
         justify-content: space-between;
@@ -115,6 +116,8 @@ p {
   align-items: center;
   justify-content: center;
   background-color: rgba(36, 35, 35, 0.831372549);
+  position: absolute;
+  top:0;
   .btStart {
     cursor: pointer;
     background-color: #7fffd4;

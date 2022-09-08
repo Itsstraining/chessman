@@ -9,7 +9,6 @@ import { ShareService } from '../share.service';
 })
 
 export class XiangqiService {
-
   currenChessTable: Array<Array<Cell>> = []
   moves: Map<string, Position> = new Map()
   chessAsset: Map<string, Chess> = new Map()
@@ -19,10 +18,9 @@ export class XiangqiService {
     this.createMoves()
     this.createChessAsset()
     this.gameOver = new ReplaySubject(3);
+
   }
-  //  xmtsvstmx|        | p    p |c c c c c|       |        |XMTSVSTMX|        | P    P |C C C C C
   setTable(txtTable: string, chessTable: Cell[][], player: Player): Cell[][] {
-    let res = [...chessTable]
     try {
       let rows = txtTable.split('|')
       for (let i = 0; i < 10; i++) {
@@ -66,24 +64,32 @@ export class XiangqiService {
                 }
               }
 
-              let id = res[i][j].chess.id
-              res[i][j].chess = { ...temp }
+              let id = chessTable[i][j].chess.id
+              chessTable[i][j].chess = { ...temp }
               if (id == '') {
-                res[i][j].chess.id = temp.shotName + i + j
+                chessTable[i][j].chess.id = temp.shotName + i + j
               }
-              res[i][j].hasChess = true
-              res[i][j].chess.position = res[i][j].position
+              chessTable[i][j].hasChess = true
+              chessTable[i][j].chess.position = chessTable[i][j].position
             }
           }
-          if (res[i][j].id == '') {
-            res[i][j].id = `[${res[i][j].position.x},${res[i][j].position.y}]`
+          if (chessTable[i][j].id == '') {
+            chessTable[i][j].id = `[${chessTable[i][j].position.x},${chessTable[i][j].position.y}]`
           }
         }
       }
     } catch (error) {
       console.log(error)
     }
-    return res
+    return chessTable
+  }
+  resetTable(table: Cell[][], player: Player) {
+    for (let i = 0; i < table.length; i++) {
+      for (let j = 0; j < table[i].length; j++) {
+        table[i][j] = this.newItemTable(i, j)
+      }
+    }
+    this.setTable('XMTSVSTMX|         | P     P |C C C C C|         |         |c c c c c| p     p |         |xmtsvstmx', table, player)
   }
   move(chess: Chess, toPosition: Position, table: Cell[][]): boolean {
     let fromP = chess.position
@@ -206,25 +212,28 @@ export class XiangqiService {
         while (!isStop) {
           pTemp = { x: pTemp.x + move1.x, y: pTemp.y + move1.y }
           if (this.onLimit(pTemp)) {
-            if (!table[pTemp.y][pTemp.x].hasChess && !stepOfCannon) {
-              dots[pTemp.y][pTemp.x] = true
-            }
-            else {
-              if (chess.shotName.toLowerCase() == 'p') {
-                if (!stepOfCannon) {
+            if (chess.shotName.toLowerCase() == 'p') {
+              if (!stepOfCannon) {
+                if (!table[pTemp.y][pTemp.x].hasChess) {
+                  dots[pTemp.y][pTemp.x] = true
+                } else {
                   stepOfCannon = true
                 }
-                else {
-                  if (!this.isAlly(chess.shotName, table[pTemp.y][pTemp.x].chess.shotName)) {
+              } else {
+                if (table[pTemp.y][pTemp.x].hasChess) {
+                  if (!this.isAlly(table[pTemp.y][pTemp.x].chess.shotName, chess.shotName)) {
                     dots[pTemp.y][pTemp.x] = true
-                    isStop = true
                   }
+                  isStop = true
                 }
               }
-              else {
-                if (!this.isAlly(chess.shotName, table[pTemp.y][pTemp.x].chess.shotName)) {
+            }
+            else {
+              if (!table[pTemp.y][pTemp.x].hasChess) {
+                dots[pTemp.y][pTemp.x] = true
+              } else {
+                if (!this.isAlly(table[pTemp.y][pTemp.x].chess.shotName, chess.shotName))
                   dots[pTemp.y][pTemp.x] = true
-                }
                 isStop = true
               }
             }
@@ -397,7 +406,6 @@ export class XiangqiService {
     for (let i = 0; i < 10; i++) {
       let temp = []
       for (let j = 0; j < 9; j++) {
-
         temp.push(this.newItemTable(i, j))
       }
       res.push(temp)

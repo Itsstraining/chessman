@@ -1,29 +1,142 @@
-
-.body{
- margin: 0 auto;
-
+p {
+  padding: 0;
+  margin: 0;
 }
-.cross{
- margin-left: 92%;
- margin-top: 0.8em;
-    i{
-        color: #c5b6b6
+.vs {
+  color: #7fffd4;
+  font-size: 3em;
+  font-weight: 500;
+}
+.a {
+  .row {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em 5em 1em 5em;
+    align-items: center;
+    .avatar {
+      width: 7em;
+      -webkit-filter: drop-shadow(0.5em 0.5em 0.5em rgb(179, 179, 179));
+      filter: drop-shadow(0.5em 0.5em 0.5em rgb(179, 179, 179));
     }
-    i:hover{
-        color: #585252
+    .c1 {
+      text-align: center;
+    }
+    .c2 {
+      text-align: center;
+    }
+  }
+  .content {
+    width: 100%;
 
+    .row1 {
+      background-color: #373737;
+      display: flex;
+      justify-content: space-between;
+      padding: 1em 4em;
+      div {
+        display: flex;
+        align-items: center;
+        padding: 1em;
+        p {
+          padding-left: 0.5em;
+          font-size: 2.4em;
+        }
+        i {
+          font-size: 2.4em;
+          margin-top: 0.1em;
+        }
+      }
+      div:hover {
+        color: rgb(209, 108, 108);
+        cursor: pointer;
+      }
     }
-}
-.Tua{
-    text-align: center;
-    H1{
-        color: #817224;
-        font-size: 3em;
+    .graps {
+      height: 55em;
+      overflow-y: scroll;
+      background: #373737;
+      .row2 {
+        display: flex;
+        justify-content: space-between;
+        padding: 1.3em 2.6em 1em 4.6em;
+        font-size: 1.2em;
+        p {
+          font-size: 1.3em;
+          font-weight: 500;
+        }
+        .c1 {
+          align-items: center;
+          display: flex;
+          img {
+            width: 2.3em;
+            margin-top: 0.6em;
+          }
+          div {
+            padding-right: 1em;
+          }
+        }
+      }
     }
+  }
 }
-.img{
-    margin: 0 10em 2em 10em ;
+
+/* width */
+::-webkit-scrollbar {
+  width: 1em;
 }
-.youwin{
-    text-align: center;
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 0.5em;
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 0.5em;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.boxStart {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(36, 35, 35, 0.831372549);
+  .btStart {
+    cursor: pointer;
+    background-color: #7fffd4;
+    padding: 1.2em 2em;
+    margin-top: -7em;
+    border-radius: 0.4em;
+    p {
+      font-size: 1.3em;
+      padding-top: 0.1em;
+      font-weight: bolder;
+      color: black;
+    }
+  }
+  .btStart:hover {
+    background-color: #6ed4b2;
+  }
+}
+
+.boxTime30 {
+  display: flex;
+
+  .example-section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    width: 50%;
+  }
+  .example-margin {
+    height: 0.5em;
+  }
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogwingameComponent } from 'src/app/components/dialog/dialogwingame/dialogwingame.component';
 import { Chess, Cell, Position } from 'src/app/models/chess.model';
 import { Grap } from 'src/app/models/grap.model';
 import { Player } from 'src/app/models/player.model';
@@ -17,9 +19,10 @@ export class BoardComponent implements OnInit {
   table: Cell[][]
   chess: Chess
   currentPlayer: Player
-  fPosition: Position = { x: -1, y: -1 }
-  tPosition: Position = { x: -1, y: -1 }
+  fPosition: Position = this.gameService.fPosition
+  tPosition: Position = this.gameService.tPosition
   grap: Grap;
+  strBoard = 'XMTSVSTMX|         | P     P |C C C C C|         |         |c c c c c| p     p |         |xmtsvstmx'
 
   constructor(
     public chessService: XiangqiService,
@@ -27,29 +30,28 @@ export class BoardComponent implements OnInit {
     private shareService: ShareService,
     public gameService: GameService,
     private AIService: AIService,
-    private historyService: HistoryService
+    private historyService: HistoryService,
+    private dialog: MatDialog,
   ) {
     this.grap = this.historyService.newGrap();
     this.currentPlayer = this.playerService.getUserById(this.gameService.currentUserIDControll)
     this.chess = chessService.newChess()
 
     this.chessService.currenChessTable = this.chessService.createChessTable()
-    let strBoard = 'XMTSVSTMX|         | P     P |C C C C C|         |         |c c c c c| p     p |         |xmtsvstmx'
-
     // let strBoard = 'p  V     |    SM   |   cT    |   c    x|        c|         |         |t        | CC  C   |   vPMC  '
-
-    this.chessService.currenChessTable = this.chessService.setTable(strBoard, this.chessService.currenChessTable, this.playerService.player1)
+    this.chessService.currenChessTable = this.chessService.setTable(this.strBoard, this.chessService.currenChessTable, this.playerService.player1)
     this.table = chessService.currenChessTable
   }
 
   //cầm con cờ
   mousedownImg(e: any, chess: Chess) {
+    if (!this.gameService.isGameStart) return
+    if (this.gameService.getCurrentUser().isBOT) return
     this.clearTableEff()
-    if (e.which != 1) {
-      return
-    }
+    if (e.which != 1) return
+
     if (!this.gameService.isGameStart) {
-      this.shareService.openSnackbar('Trận đấu chưa bắt đầu..', 'OK')
+      this.shareService.openSnackbar("Nhấn 'BẮT ĐẦU' để bắt đầu trận đấu", 'OK')
       return
     }
     this.currentPlayer = this.playerService.getUserById(this.gameService.currentUserIDControll)
@@ -75,6 +77,8 @@ export class BoardComponent implements OnInit {
   }
   drop(ev: any, p: Position) {
     ev.preventDefault();
+    if (!this.gameService.isGameStart) return
+    if (this.gameService.getCurrentUser().isBOT) return
     let fP = this.chess.position
     let isMove = this.chessService.move(this.chess, p, this.table)
     if (isMove) {
@@ -100,7 +104,7 @@ export class BoardComponent implements OnInit {
   }
 
   BOTMove() {
-    this.AIService.setMoveOn(this.grap.grapFrom + this.grap.grapTo).subscribe(async (dataRes: { moveTo: string }) => {
+    this.AIService.setMoveOnBOT(this.grap.grapFrom + this.grap.grapTo).subscribe(async (dataRes: { moveTo: string }) => {
       if (dataRes != undefined) {
         let res = this.historyService.grapStrToPosition(dataRes.moveTo)
         await this.delay(2);
@@ -140,41 +144,35 @@ export class BoardComponent implements OnInit {
 
   ngOnInit(): void {
     this.gameService.time.isTimeOut.subscribe((isTimeOut) => {
-      console.log('het gio')
-      // this.gameService.endGame()
-      // if (isTimeOut == true) {
-      //   const dialogRef = this.dialog.open(DialogWinComponent, {
-      //     panelClass: 'dialogWin',
-      //     width: '42em',
-      //   });
-      //   dialogRef.afterClosed().subscribe(result => {
-      //     console.log(`Dialog result: ${result}`);
-      //   });
-      // }
+
+      console.log('hết giờ')
+      this.gameService.changeCurrentPlayer(this.playerService.player1, this.playerService.player2)
+      this.gameService.endGame(this.gameService.player1, this.gameService.player2)
+      this.AIService.killFfish()
+
+      if (isTimeOut == true) {
+        this.dialog.open(DialogwingameComponent, {
+          panelClass: 'dialogWin',
+          width: '42em',
+          data: this.gameService.getCurrentUser()
+        });
+      }
     });
     this.chessService.gameOver.subscribe(e => {
-      // this.gameService.endGame()
       if (e.isDraw) {
-        console.log('hoa co')
-
-        // const dialogRef = this.dialog.open(DialogDrawComponent, {
-        //   panelClass: 'dialogDraw',
-        //   width: '42em',
-        // });
-        // dialogRef.afterClosed().subscribe(result => {
-        //   console.log(`Dialog result: ${result}`);
-        // });
+        // console.log('hoa co')
       } else {
-        console.log('het co')
-        console.log(e.winer.name + ' is winer')
-        // const dialogRef = this.dialog.open(DialogWinComponent, {
-        //   panelClass: 'dialogWin',
-        //   width: '42em',
-        // });
-        // dialogRef.afterClosed().subscribe(result => {
-        //   console.log(`Dialog result: ${result}`);
-        // });
+        this.gameService.changeCurrentPlayer(this.playerService.player1, this.playerService.player2)
+        this.dialog.open(DialogwingameComponent, {
+          panelClass: 'dialogWin',
+          width: '42em',
+          data: this.gameService.getCurrentUser()
+        });
       }
+
+      this.gameService.endGame(this.gameService.player1, this.gameService.player2)
+      this.AIService.killFfish()
+
     })
   }
 
