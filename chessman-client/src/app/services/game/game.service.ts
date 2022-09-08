@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+  import { Injectable } from '@angular/core';
 import { Player } from 'src/app/models/player.model';
 import { Timer } from 'src/app/models/timer';
 import { XiangqiService } from '../xiangqi/xiangqi.service';
@@ -7,27 +7,29 @@ import { XiangqiService } from '../xiangqi/xiangqi.service';
   providedIn: 'root'
 })
 export class GameService {
+  mode = 0 //0: 2 off, 1: with AI
+
   isGameStart = false
   currentUserIDControll = ''
   time = new Timer()
-
   /////
-  timePerMove = 30
-
+  timePerMove = 0
+  timePerUser = 0
   player1: Player
   player2: Player
 
-
   constructor(private xiangqiS: XiangqiService) {
-    this.player1 = this.newPlayer('user2', 'HungTT', 1222, 'a3', 'xmtsvspc', true)
-    this.player2 = this.newPlayer('user1', 'DucTH', 1230, 'a2', 'XMTSVSPC', false)
+    this.player1 = this.newPlayer('baszsdasjhdas', 'Player1', 1222, 'a3', 'xmtsvspc', true, false)
+    this.player2 = this.newPlayer('lkajshkldjask', 'Player2', 1230, 'a2', 'XMTSVSPC', false, false)
   }
-  startGame(player1: Player, player2: Player) {
+  startGame(player1: Player, player2: Player, timePerMove: number, timePerUser: number, mode: number) {
+    this.timePerMove = timePerMove
+    this.timePerUser = timePerUser
     this.isGameStart = true;
 
-    player1.chessControl.timer.setlimitSecond(60 * 15)
-    player2.chessControl.timer.setlimitSecond(60 * 15)
-    this.time.setlimitSecond(this.timePerMove)
+    player1.chessControl.timer.setlimitSecond(60 * timePerUser)
+    player2.chessControl.timer.setlimitSecond(60 * timePerUser)
+    this.time.setlimitSecond(timePerMove)
     this.currentUserIDControll = player1.id
 
     this.time.startCountDown()
@@ -72,12 +74,13 @@ export class GameService {
     return c3.toUpperCase() == c3 || c3.toLocaleLowerCase() == c3
   }
 
-  newPlayer(id: string, name: string, elo: number, img: string, control: string, isBase: boolean) {
+  newPlayer(id: string, name: string, elo: number, img: string, control: string, isBase: boolean, isBOT: boolean) {
     let player: Player = {
       id: id,
       name: name,
       elo: elo,
       img: img,
+      isBOT: isBOT,
       isBase: isBase,
       chessControl: {
         chessIDControl: control,
@@ -105,7 +108,7 @@ export class GameService {
       }
       return this.player2
     }
-    return this.newPlayer('', '', 1200, 'a2', '', true)
+    return this.newPlayer('', '', 1200, 'a2', '', true, false)
   }
   getCurrentUser() {
     if (this.enoughPlayer()) {
@@ -114,6 +117,6 @@ export class GameService {
       }
       return this.player2
     }
-    return this.newPlayer('', '', 1200, 'a2', '', false)
+    return this.newPlayer('', '', 1200, 'a2', '', false, false)
   }
 }

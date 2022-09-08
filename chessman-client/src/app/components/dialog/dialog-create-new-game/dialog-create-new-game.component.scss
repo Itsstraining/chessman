@@ -1,6 +1,6 @@
 .dialog-create-game {
   font-size: calc(100vw * (14 / 2560));
-  background-color: #232323;
+  background-color: #141414;
   width: 35em;
   border-radius: 0.3em;
   color: #c1c1c1;
@@ -26,7 +26,7 @@ p {
     transform: rotate(45deg);
     transition: transform 0.3s;
   }
-  i:hover{
+  i:hover {
     transform: rotate(90deg);
   }
 }
@@ -71,14 +71,14 @@ p {
   }
 }
 
-.btCreate{
-  background-color: #C2352E;
-    border-radius: 0.5em;
-    padding: 1em 3em;
-    font-size: 1.5em;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 3em;
+.btCreate {
+  background-color: #c2352e;
+  border-radius: 0.5em;
+  padding: 1em 3em;
+  font-size: 1.5em;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3em;
 }

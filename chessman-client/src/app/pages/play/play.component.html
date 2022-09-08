@@ -1,4 +1,7 @@
 <div class="playPage">
+  <div class="indexs">
+    <div *ngFor="let item of [10,9,8,7,6,5,4,3,2,1]" class="index">{{item}}</div>
+  </div>
   <div class="col1">
     <app-board></app-board>
   </div>
@@ -6,6 +9,6 @@
     <div class="forBr">
     </div>
     <app-box-history></app-box-history>
-
   </div>
 </div>
+

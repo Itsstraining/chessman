@@ -1,16 +1,15 @@
-import { Observable } from "rxjs"
+import { Observable, ReplaySubject } from "rxjs"
 
 export class Timer {
   isStart = false
   private isPause = false
   private intervalId: any
-  isTimeOut = false
+  isTimeOut: ReplaySubject<boolean>
   //
   private currentTime = 0
 
-
   constructor() {
-
+    this.isTimeOut = new ReplaySubject(3);
   }
   startCountDown() {
     this.isStart = true
@@ -18,7 +17,7 @@ export class Timer {
       if (!this.isPause) {
         this.currentTime--
         if (this.currentTime === 0) {
-          this.isTimeOut = true
+          this.isTimeOut.next(true)
           clearInterval(this.intervalId)
         }
       }
@@ -31,7 +30,7 @@ export class Timer {
     this.isPause = false
   }
   clean() {
-
+    clearInterval(this.intervalId)
   }
 
   getFormatTime(): string {
