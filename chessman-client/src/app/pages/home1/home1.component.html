@@ -3,7 +3,7 @@
         <div class="bar">
             
                     <div style="width: 5em;">
-                        <img src="{{authSevice.user.photoURL}}" alt="">
+                        <img *ngIf="authSevice.hasUser"  referrerpolicy="no-referrer" src="{{authSevice.user.photoURL}}">
                     </div>
             <a href="/info" style="color: white; text-decoration:none;"
                     *ngIf="authSevice.hasUser">{{authSevice.user.displayName}} </a>
