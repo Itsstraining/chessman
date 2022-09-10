@@ -13,8 +13,8 @@ export const environment = {
     measurementId: 'G-Y25D96KBQN',
   },
   production: false,
-  endpoint: 'http://localhost:3000/'
-  // endpoint: 'https://server-oolzqmo74q-uc.a.run.app/'
+  // endpoint: 'http://localhost:3000/'
+  endpoint: 'https://server-oolzqmo74q-uc.a.run.app/'
 };
 
 /*

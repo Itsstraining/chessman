@@ -17,7 +17,7 @@ import { MaterialModule } from './material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { DialogNewGameModule } from './components/dialog/dialog-create-new-game/dialog-create-new-game.module';
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
-const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+const config: SocketIoConfig = { url: environment.endpoint, options: {} };
 
 
 

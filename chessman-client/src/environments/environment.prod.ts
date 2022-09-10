@@ -9,5 +9,7 @@ export const environment = {
     measurementId: 'G-Y25D96KBQN',
   },
   production: true,
-  endpoint: 'http://localhost:3000/'
+  // endpoint: 'http://localhost:3000/'
+  endpoint: 'https://server-oolzqmo74q-uc.a.run.app/'
+
 };
